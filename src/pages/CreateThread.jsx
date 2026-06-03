@@ -39,6 +39,17 @@ export default function CreateThread() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!title.trim()) {
+      setError('Title is required and cannot be empty.');
+      return;
+    }
+
+    if (!body.trim()) {
+      setError('Content is required and cannot be empty.');
+      return;
+    }
+
     if (!subforumId) {
       setError('Please select a subforum.');
       return;
@@ -49,8 +60,8 @@ export default function CreateThread() {
 
     try {
       const response = await api.post('/api/threads', {
-        title,
-        body,
+        title: title.trim(),
+        body: body.trim(),
         subforumId: Number(subforumId),
       });
 

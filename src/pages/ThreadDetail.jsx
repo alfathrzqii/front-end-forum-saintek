@@ -49,6 +49,13 @@ export default function ThreadDetail() {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
+      <Link to="/" className="inline-flex items-center text-blue-600 hover:text-blue-800 mb-6 transition-colors duration-200">
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        Back to Home
+      </Link>
+
       <div className="bg-white rounded-lg shadow-md overflow-hidden">
         <div className="p-6">
           {/* Header Info */}
@@ -65,9 +72,9 @@ export default function ThreadDetail() {
           </div>
 
           {/* Thread Content */}
-          <h1 className="text-2xl font-bold text-gray-900 mb-4">{title}</h1>
+          <h1 className="text-3xl font-extrabold text-gray-900 mb-6">{title}</h1>
 
-          <div className="prose max-w-none text-gray-800 whitespace-pre-wrap mb-8">
+          <div className="text-lg leading-relaxed text-gray-800 whitespace-pre-wrap mb-8">
             {body}
           </div>
 
@@ -95,10 +102,13 @@ export default function ThreadDetail() {
 
       {/* Comment Section Placeholder */}
       <div className="mt-6 bg-white rounded-lg shadow-md p-6">
-        <h3 className="text-lg font-bold mb-4">Comments</h3>
-        <div className="bg-gray-50 border border-dashed border-gray-300 rounded-md p-8 text-center text-gray-500">
-          <p>Comment section is coming soon!</p>
-          <p className="text-xs mt-2">You will be able to join the discussion in the next update.</p>
+        <h3 className="text-xl font-bold mb-6 text-gray-900">Comments</h3>
+        <div className="bg-gray-50 border-2 border-dashed border-gray-300 rounded-lg p-10 text-center text-gray-500">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 mx-auto mb-4 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+          </svg>
+          <p className="text-lg font-medium">Comment section is coming soon!</p>
+          <p className="text-sm mt-2">You will be able to join the discussion in the next update.</p>
         </div>
       </div>
     </div>
