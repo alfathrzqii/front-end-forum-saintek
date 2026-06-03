@@ -1,1 +1,90 @@
-export default function Home() { return <h1 className='text-3xl font-bold'>Home Page</h1>; }
+import { useState, useEffect } from 'react';
+import api from '../services/api';
+import ThreadCard from '../components/ThreadCard';
+import SubforumSidebar from '../components/SubforumSidebar';
+
+export default function Home() {
+  const [threads, setThreads] = useState([]);
+  const [subforums, setSubforums] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const [threadsRes, subforumsRes] = await Promise.all([
+          api.get('/api/threads'),
+          api.get('/api/subforums'),
+        ]);
+
+        // Handling both possible response structures (direct array or data property)
+        const threadsData = threadsRes.data?.data?.threads || threadsRes.data?.threads || (Array.isArray(threadsRes.data) ? threadsRes.data : []);
+        const subforumsData = subforumsRes.data?.data?.subforums || subforumsRes.data?.subforums || (Array.isArray(subforumsRes.data) ? subforumsRes.data : []);
+
+        setThreads(threadsData);
+        setSubforums(subforumsData);
+      } catch (err) {
+        console.error('Failed to fetch data:', err);
+        setError('Failed to load content. Please try again later.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-64">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="max-w-7xl mx-auto px-4 py-8">
+        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+          <span className="block sm:inline">{error}</span>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="flex flex-col lg:flex-row gap-8">
+        {/* Main Content: Feed Thread */}
+        <div className="w-full lg:w-2/3">
+          <h1 className="text-2xl font-bold mb-6">Recent Threads</h1>
+          {threads.length > 0 ? (
+            <div className="space-y-4">
+              {threads.map((thread) => (
+                <ThreadCard key={thread.id} thread={thread} />
+              ))}
+            </div>
+          ) : (
+            <div className="bg-white p-8 rounded-md shadow text-center">
+              <p className="text-gray-500">No threads found. Be the first to start a conversation!</p>
+            </div>
+          )}
+        </div>
+
+        {/* Sidebar: Subforums */}
+        <aside className="w-full lg:w-1/3">
+          <div className="sticky top-8">
+            <SubforumSidebar subforums={subforums} />
+            <div className="mt-4 p-4 bg-white border border-gray-200 rounded-md shadow-sm">
+              <h3 className="font-bold text-sm mb-2">About Forum SAINTEK</h3>
+              <p className="text-xs text-gray-600 leading-relaxed">
+                Welcome to the SAINTEK community! A place to discuss Science, Technology, Engineering, and Mathematics.
+              </p>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  );
+}
