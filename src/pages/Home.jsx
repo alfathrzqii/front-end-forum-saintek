@@ -1,9 +1,12 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import api from '../services/api';
 import ThreadCard from '../components/ThreadCard';
 import SubforumSidebar from '../components/SubforumSidebar';
+import useAuthStore from '../store/authStore';
 
 export default function Home() {
+  const { token } = useAuthStore();
   const [threads, setThreads] = useState([]);
   const [subforums, setSubforums] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -58,7 +61,20 @@ export default function Home() {
       <div className="flex flex-col lg:flex-row gap-8">
         {/* Main Content: Feed Thread */}
         <div className="w-full lg:w-2/3">
-          <h1 className="text-2xl font-bold mb-6">Recent Threads</h1>
+          <div className="flex justify-between items-center mb-6">
+            <h1 className="text-2xl font-bold">Recent Threads</h1>
+            {token && (
+              <Link
+                to="/create-thread"
+                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-bold transition duration-200 flex items-center"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clipRule="evenodd" />
+                </svg>
+                Create Thread
+              </Link>
+            )}
+          </div>
           {threads.length > 0 ? (
             <div className="space-y-4">
               {threads.map((thread) => (
