@@ -104,7 +104,10 @@ export default function ThreadDetail() {
       </div>
 
       {/* Comment Section */}
-      <CommentSection threadId={threadId} />
+      <CommentSection
+        threadId={threadId}
+        isThreadAnonymous={subforum?.slug === 'saintekfess'}
+      />
     </div>
   );
 }

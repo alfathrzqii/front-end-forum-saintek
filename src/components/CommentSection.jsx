@@ -2,10 +2,13 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../services/api';
 import useAuthStore from '../store/authStore';
+import { nestComments } from '../utils/commentUtils';
+import CommentItem from './CommentItem';
 
-export default function CommentSection({ threadId }) {
+export default function CommentSection({ threadId, isThreadAnonymous = false }) {
   const { token, user: currentUser } = useAuthStore();
-  const [comments, setComments] = useState([]);
+  const [flatComments, setFlatComments] = useState([]);
+  const [nestedComments, setNestedComments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [newComment, setNewComment] = useState('');
@@ -17,7 +20,8 @@ export default function CommentSection({ threadId }) {
         setLoading(true);
         const response = await api.get(`/comments/thread/${threadId}`);
         const data = response.data?.data || [];
-        setComments(data);
+        setFlatComments(data);
+        setNestedComments(nestComments(data));
         setError(null);
       } catch (err) {
         console.error('Failed to fetch comments:', err);
@@ -34,7 +38,8 @@ export default function CommentSection({ threadId }) {
     try {
       const response = await api.get(`/comments/thread/${threadId}`);
       const data = response.data?.data || [];
-      setComments(data);
+      setFlatComments(data);
+      setNestedComments(nestComments(data));
     } catch (err) {
       console.error('Failed to refresh comments:', err);
     }
@@ -66,7 +71,7 @@ export default function CommentSection({ threadId }) {
         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-2 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
         </svg>
-        Comments ({comments.length})
+        Comments ({flatComments.length})
       </h3>
 
       {/* Comment Form */}
@@ -109,20 +114,16 @@ export default function CommentSection({ threadId }) {
         </div>
       ) : error ? (
         <div className="text-center py-10 text-red-500">{error}</div>
-      ) : comments.length > 0 ? (
-        <div className="space-y-6">
-          {comments.map((comment) => (
-            <div key={comment.id} className="border-l-4 border-gray-100 pl-4 py-2 transition-all duration-200 hover:border-blue-200">
-              <div className="flex items-center text-xs text-gray-500 mb-2">
-                <span className="font-bold text-gray-900 mr-2">u/{comment.author?.username || 'anonymous'}</span>
-                <span>•</span>
-                <span className="ml-2">{new Date(comment.createdAt).toLocaleString()}</span>
-              </div>
-              <div className="text-gray-800 text-sm leading-relaxed whitespace-pre-wrap">
-                {comment.content}
-              </div>
-              {/* Optional: Add Reply button here if backend supports nesting */}
-            </div>
+      ) : nestedComments.length > 0 ? (
+        <div className="space-y-4">
+          {nestedComments.map((comment) => (
+            <CommentItem
+              key={comment.id}
+              comment={comment}
+              threadId={threadId}
+              onCommentPosted={refreshComments}
+              isThreadAnonymous={isThreadAnonymous}
+            />
           ))}
         </div>
       ) : (
