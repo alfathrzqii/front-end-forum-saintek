@@ -16,7 +16,7 @@ export default function CommentSection({ threadId }) {
       try {
         setLoading(true);
         const response = await api.get(`/api/comments/thread/${threadId}`);
-        const data = response.data?.data?.comments || response.data?.comments || (Array.isArray(response.data) ? response.data : []);
+        const data = response.data?.data || [];
         setComments(data);
         setError(null);
       } catch (err) {
@@ -33,7 +33,7 @@ export default function CommentSection({ threadId }) {
   const refreshComments = async () => {
     try {
       const response = await api.get(`/api/comments/thread/${threadId}`);
-      const data = response.data?.data?.comments || response.data?.comments || (Array.isArray(response.data) ? response.data : []);
+      const data = response.data?.data || [];
       setComments(data);
     } catch (err) {
       console.error('Failed to refresh comments:', err);
@@ -114,7 +114,7 @@ export default function CommentSection({ threadId }) {
           {comments.map((comment) => (
             <div key={comment.id} className="border-l-4 border-gray-100 pl-4 py-2 transition-all duration-200 hover:border-blue-200">
               <div className="flex items-center text-xs text-gray-500 mb-2">
-                <span className="font-bold text-gray-900 mr-2">u/{comment.user?.username || 'anonymous'}</span>
+                <span className="font-bold text-gray-900 mr-2">u/{comment.author?.username || 'anonymous'}</span>
                 <span>•</span>
                 <span className="ml-2">{new Date(comment.createdAt).toLocaleString()}</span>
               </div>

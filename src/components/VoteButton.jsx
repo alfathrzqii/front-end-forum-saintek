@@ -23,20 +23,15 @@ export default function VoteButton({ threadId, initialUpvotes = 0, initialDownvo
     try {
       const response = await api.post('/api/votes', {
         threadId,
-        voteType,
+        type: voteType === 'upvote' ? 'UPVOTE' : 'DOWNVOTE',
       });
 
       // Update state based on backend response
-      // Assuming response.data.data contains { upvotesCount, downvotesCount, userVote }
-      const data = response.data?.data || response.data;
+      // Backend returns { action: 'created' | 'updated' | 'deleted' }
+      const result = response.data?.data;
 
-      if (data && typeof data.upvotesCount !== 'undefined') {
-        setUpvotes(data.upvotesCount);
-        setDownvotes(data.downvotesCount);
-        setUserVote(data.userVote);
-      } else {
-        // Fallback: Toggle logic if API doesn't return the full updated state
-        if (voteType === 'upvote') {
+      // Fallback: Toggle logic since API doesn't return the full updated state
+      if (voteType === 'upvote') {
           if (userVote === 1) {
             setUserVote(0);
             setUpvotes(prev => prev - 1);
