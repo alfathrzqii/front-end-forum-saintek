@@ -27,7 +27,16 @@ export default function Register() {
       });
       navigate('/login');
     } catch (err) {
-      setError(err.response?.data?.message || err.message || 'Registration failed. Please try again.');
+      if (err.response) {
+        // Error yang dikirim dari server (misal: validasi gagal)
+        setError(err.response.data?.message || `Terjadi kesalahan pada server (${err.response.status}).`);
+      } else if (err.request) {
+        // Tidak ada respon dari server
+        setError('Tidak dapat terhubung ke server. Periksa koneksi internet Anda.');
+      } else {
+        // Kesalahan lainnya
+        setError('Maaf, terjadi kesalahan saat memproses pendaftaran Anda.');
+      }
     } finally {
       setIsLoading(false);
     }
