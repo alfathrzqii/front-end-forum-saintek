@@ -21,14 +21,13 @@ export default function VoteButton({ threadId, initialUpvotes = 0, initialDownvo
 
     setIsLoading(true);
     try {
-      const response = await api.post('/votes', {
+      await api.post('/votes', {
         threadId,
         type: voteType === 'upvote' ? 'UPVOTE' : 'DOWNVOTE',
       });
 
       // Update state based on backend response
       // Backend returns { action: 'created' | 'updated' | 'deleted' }
-      const result = response.data?.data;
 
       // Fallback: Toggle logic since API doesn't return the full updated state
       if (voteType === 'upvote') {
