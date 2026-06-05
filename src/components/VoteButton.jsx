@@ -56,7 +56,6 @@ export default function VoteButton({ threadId, initialUpvotes = 0, initialDownvo
             setDownvotes(prev => prev + 1);
           }
         }
-      }
     } catch (err) {
       console.error('Failed to vote:', err);
       // Optional: Show error message to user
