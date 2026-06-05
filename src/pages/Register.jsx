@@ -18,7 +18,7 @@ export default function Register() {
     setIsLoading(true);
 
     try {
-      await api.post('/api/users', { 
+      await api.post('/users', { 
         username, 
         email, 
         password,
@@ -27,7 +27,7 @@ export default function Register() {
       });
       navigate('/login');
     } catch (err) {
-      setError(err.response?.data?.message || 'Registration failed. Please try again.');
+      setError(err.response?.data?.message || err.message || 'Registration failed. Please try again.');
     } finally {
       setIsLoading(false);
     }

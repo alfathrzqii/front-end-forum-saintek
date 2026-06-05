@@ -21,7 +21,7 @@ export default function VoteButton({ threadId, initialUpvotes = 0, initialDownvo
 
     setIsLoading(true);
     try {
-      const response = await api.post('/api/votes', {
+      const response = await api.post('/votes', {
         threadId,
         type: voteType === 'upvote' ? 'UPVOTE' : 'DOWNVOTE',
       });

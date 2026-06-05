@@ -17,8 +17,8 @@ export default function Home() {
       try {
         setLoading(true);
         const [threadsRes, subforumsRes] = await Promise.all([
-          api.get('/api/threads'),
-          api.get('/api/subforums'),
+          api.get('/threads'),
+          api.get('/subforums'),
         ]);
 
         // Handling both possible response structures (direct array or data property)

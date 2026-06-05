@@ -22,7 +22,7 @@ export default function CreateThread() {
 
     const fetchSubforums = async () => {
       try {
-        const response = await api.get('/api/subforums');
+        const response = await api.get('/subforums');
         const subforumsData = response.data?.data || [];
         setSubforums(subforumsData);
         if (subforumsData.length > 0) {
@@ -59,7 +59,7 @@ export default function CreateThread() {
     setError('');
 
     try {
-      const response = await api.post('/api/threads', {
+      const response = await api.post('/threads', {
         title: title.trim(),
         content: content.trim(),
         subforumSlug: subforumSlug,

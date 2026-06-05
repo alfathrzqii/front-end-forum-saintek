@@ -14,7 +14,7 @@ export default function ThreadDetail() {
     const fetchThread = async () => {
       try {
         setLoading(true);
-        const response = await api.get(`/api/threads/${id}`);
+        const response = await api.get(`/threads/${id}`);
         const threadData = response.data?.data;
         setThread(threadData);
       } catch (err) {

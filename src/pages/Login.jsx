@@ -19,14 +19,14 @@ export default function Login() {
 
     try {
       // 1. Login to get token
-      const loginResponse = await api.post('/api/authentications', { email, password });
+      const loginResponse = await api.post('/authentications', { email, password });
       const { accessToken } = loginResponse.data.data;
 
       // 2. Save token to Zustand
       setToken(accessToken);
 
       // 3. Fetch user profile
-      const userResponse = await api.get('/api/users/me');
+      const userResponse = await api.get('/users/me');
       const userData = userResponse.data.data;
 
       // 4. Save user data to Zustand
@@ -35,7 +35,7 @@ export default function Login() {
       // 5. Redirect to home
       navigate('/');
     } catch (err) {
-      setError(err.response?.data?.message || 'Login failed. Please check your credentials.');
+      setError(err.response?.data?.message || err.message || 'Login failed. Please check your credentials.');
       // If login was successful but profile fetch failed, we might want to logout
       // but according to requirements we just need to implement this flow.
     } finally {

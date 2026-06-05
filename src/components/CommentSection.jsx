@@ -15,7 +15,7 @@ export default function CommentSection({ threadId }) {
     const fetchComments = async () => {
       try {
         setLoading(true);
-        const response = await api.get(`/api/comments/thread/${threadId}`);
+        const response = await api.get(`/comments/thread/${threadId}`);
         const data = response.data?.data || [];
         setComments(data);
         setError(null);
@@ -32,7 +32,7 @@ export default function CommentSection({ threadId }) {
 
   const refreshComments = async () => {
     try {
-      const response = await api.get(`/api/comments/thread/${threadId}`);
+      const response = await api.get(`/comments/thread/${threadId}`);
       const data = response.data?.data || [];
       setComments(data);
     } catch (err) {
@@ -46,7 +46,7 @@ export default function CommentSection({ threadId }) {
 
     setSubmitting(true);
     try {
-      await api.post('/api/comments', {
+      await api.post('/comments', {
         threadId,
         content: newComment.trim(),
       });
