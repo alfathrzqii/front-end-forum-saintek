@@ -27,7 +27,7 @@ export default function Login() {
 
       // 3. Fetch user profile
       const userResponse = await api.get('/api/users/me');
-      const userData = userResponse.data.data.user;
+      const userData = userResponse.data.data;
 
       // 4. Save user data to Zustand
       setUser(userData);
