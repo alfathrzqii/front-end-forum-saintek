@@ -1,10 +1,25 @@
 /**
  * Converts a flat array of comments into a nested tree structure.
+ * If the input is already a tree (detected by existing replies), it returns it as-is.
  *
- * @param {Array} comments - Flat array of comment objects.
+ * @param {Array} comments - Flat array or tree of comment objects.
  * @returns {Array} Nested tree of comments.
  */
 export const nestComments = (comments) => {
+  if (!comments || !Array.isArray(comments) || comments.length === 0) {
+    return [];
+  }
+
+  // Check if it's already a tree structure
+  // If any comment has a non-empty replies array, we assume it's already nested
+  const isAlreadyNested = comments.some(
+    (comment) => comment.replies && Array.isArray(comment.replies) && comment.replies.length > 0
+  );
+
+  if (isAlreadyNested) {
+    return comments;
+  }
+
   const commentMap = {};
   const nestedComments = [];
 
@@ -23,8 +38,7 @@ export const nestComments = (comments) => {
     }
   });
 
-  // Sort by date (oldest first or newest first depending on preference, here we'll keep API order or sort by date)
-  // Most forums prefer oldest first for readability of conversation flow
+  // Sort by date (oldest first)
   const sortByDate = (a, b) => new Date(a.createdAt) - new Date(b.createdAt);
 
   nestedComments.sort(sortByDate);
