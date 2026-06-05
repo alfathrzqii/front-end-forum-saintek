@@ -3,12 +3,12 @@ import useAuthStore from '../store/authStore';
 import api from '../services/api';
 
 export default function Navbar() {
-  const { token, user, logout } = useAuthStore();
+  const { token, refreshToken, user, logout } = useAuthStore();
   const navigate = useNavigate();
 
   const handleLogout = async () => {
     try {
-      await api.delete('/api/authentications');
+      await api.delete('/authentications', { data: { refreshToken } });
     } catch (err) {
       console.error('Logout failed', err);
     } finally {

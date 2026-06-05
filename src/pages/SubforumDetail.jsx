@@ -18,30 +18,27 @@ export default function SubforumDetail() {
         setLoading(true);
         setError(null);
 
-        // Fetch subforum details and all subforums (for sidebar)
+        // Fetch subforum details, all subforums (for sidebar), and threads for this subforum
         const [subforumRes, subforumsRes, threadsRes] = await Promise.all([
-          api.get(`/api/subforums/${slug}`),
-          api.get('/api/subforums'),
-          api.get('/api/threads')
+          api.get(`/subforums/${slug}`),
+          api.get('/subforums'),
+          api.get('/threads', { params: { subforum: slug } })
         ]);
 
-        const subforumData = subforumRes.data?.data?.subforum || subforumRes.data?.subforum || subforumRes.data;
-        const subforumsListData = subforumsRes.data?.data?.subforums || subforumsRes.data?.subforums || (Array.isArray(subforumsRes.data) ? subforumsRes.data : []);
-        const allThreadsData = threadsRes.data?.data?.threads || threadsRes.data?.threads || (Array.isArray(threadsRes.data) ? threadsRes.data : []);
+        const subforumData = subforumRes.data?.data;
+        const subforumsListData = subforumsRes.data?.data || [];
+        const threadsData = threadsRes.data?.data || [];
 
         setSubforum(subforumData);
         setSubforums(subforumsListData);
-
-        // Filter threads belonging to this subforum
-        // We assume thread has subforum object or subforumId
-        const filteredThreads = allThreadsData.filter(thread =>
-          thread.subforum?.slug === slug || thread.subforumId === subforumData.id
-        );
-
-        setThreads(filteredThreads);
+        setThreads(threadsData);
       } catch (err) {
         console.error('Failed to fetch subforum data:', err);
-        setError('Failed to load subforum details. It may not exist.');
+        if (err.response?.status === 404) {
+          setError('Subforum tidak ditemukan.');
+        } else {
+          setError('Gagal memuat detail subforum. Silakan coba lagi nanti.');
+        }
       } finally {
         setLoading(false);
       }
