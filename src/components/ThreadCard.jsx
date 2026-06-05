@@ -29,7 +29,7 @@ export default function ThreadCard({ thread }) {
             </Link>
           )}
           <span>•</span>
-          <span>Posted by u/{author?.username || 'anonymous'}</span>
+          <span>Posted by u/{subforum?.slug === 'saintekfess' ? 'anonymous' : (author?.username || 'anonymous')}</span>
           <span>•</span>
           <span>{new Date(createdAt).toLocaleDateString()}</span>
         </div>

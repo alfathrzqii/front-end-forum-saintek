@@ -71,7 +71,7 @@ export default function ThreadDetail() {
               </Link>
             )}
             <span>•</span>
-            <span>Posted by u/{author?.username || 'anonymous'}</span>
+            <span>Posted by u/{subforum?.slug === 'saintekfess' ? 'anonymous' : (author?.username || 'anonymous')}</span>
             <span>•</span>
             <span>{new Date(createdAt).toLocaleString()}</span>
           </div>
