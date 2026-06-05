@@ -5,8 +5,8 @@ import useAuthStore from '../store/authStore';
 
 export default function CreateThread() {
   const [title, setTitle] = useState('');
-  const [body, setBody] = useState('');
-  const [subforumId, setSubforumId] = useState('');
+  const [content, setContent] = useState('');
+  const [subforumSlug, setSubforumSlug] = useState('');
   const [subforums, setSubforums] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
@@ -23,10 +23,10 @@ export default function CreateThread() {
     const fetchSubforums = async () => {
       try {
         const response = await api.get('/api/subforums');
-        const subforumsData = response.data?.data?.subforums || response.data?.subforums || (Array.isArray(response.data) ? response.data : []);
+        const subforumsData = response.data?.data || [];
         setSubforums(subforumsData);
         if (subforumsData.length > 0) {
-          setSubforumId(subforumsData[0].id);
+          setSubforumSlug(subforumsData[0].slug);
         }
       } catch (err) {
         console.error('Failed to fetch subforums:', err);
@@ -45,12 +45,12 @@ export default function CreateThread() {
       return;
     }
 
-    if (!body.trim()) {
+    if (!content.trim()) {
       setError('Content is required and cannot be empty.');
       return;
     }
 
-    if (!subforumId) {
+    if (!subforumSlug) {
       setError('Please select a subforum.');
       return;
     }
@@ -61,11 +61,11 @@ export default function CreateThread() {
     try {
       const response = await api.post('/api/threads', {
         title: title.trim(),
-        body: body.trim(),
-        subforumId: Number(subforumId),
+        content: content.trim(),
+        subforumSlug: subforumSlug,
       });
 
-      const newThreadId = response.data?.data?.threadId || response.data?.threadId || response.data?.id;
+      const newThreadId = response.data?.data?.id;
 
       if (newThreadId) {
         navigate(`/threads/${newThreadId}`);
@@ -97,14 +97,14 @@ export default function CreateThread() {
             </label>
             <select
               id="subforum"
-              value={subforumId}
-              onChange={(e) => setSubforumId(e.target.value)}
+              value={subforumSlug}
+              onChange={(e) => setSubforumSlug(e.target.value)}
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               required
             >
               <option value="" disabled>Select a subforum</option>
               {subforums.map((subforum) => (
-                <option key={subforum.id} value={subforum.id}>
+                <option key={subforum.id} value={subforum.slug}>
                   s/{subforum.name}
                 </option>
               ))}
@@ -128,14 +128,14 @@ export default function CreateThread() {
           </div>
 
           <div>
-            <label htmlFor="body" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="content" className="block text-sm font-medium text-gray-700 mb-1">
               Content
             </label>
             <textarea
-              id="body"
+              id="content"
               rows="8"
-              value={body}
-              onChange={(e) => setBody(e.target.value)}
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
               placeholder="Share your thoughts..."
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               required

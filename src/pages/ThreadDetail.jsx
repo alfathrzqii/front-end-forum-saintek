@@ -15,7 +15,7 @@ export default function ThreadDetail() {
       try {
         setLoading(true);
         const response = await api.get(`/api/threads/${id}`);
-        const threadData = response.data?.data?.thread || response.data?.thread || response.data;
+        const threadData = response.data?.data;
         setThread(threadData);
       } catch (err) {
         console.error('Failed to fetch thread:', err);
@@ -47,7 +47,10 @@ export default function ThreadDetail() {
     );
   }
 
-  const { id: threadId, title, body, createdAt, user, subforum, upvotes, downvotes, userVote } = thread;
+  const { id: threadId, title, content, createdAt, author, subforum, _count } = thread;
+  const upvotes = _count?.votes || 0;
+  const downvotes = 0;
+  const userVote = null;
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
@@ -68,7 +71,7 @@ export default function ThreadDetail() {
               </Link>
             )}
             <span>•</span>
-            <span>Posted by u/{user?.username || 'anonymous'}</span>
+            <span>Posted by u/{author?.username || 'anonymous'}</span>
             <span>•</span>
             <span>{new Date(createdAt).toLocaleString()}</span>
           </div>
@@ -77,7 +80,7 @@ export default function ThreadDetail() {
           <h1 className="text-3xl font-extrabold text-gray-900 mb-6">{title}</h1>
 
           <div className="text-lg leading-relaxed text-gray-800 whitespace-pre-wrap mb-8">
-            {body}
+            {content}
           </div>
 
           {/* Action Bar */}

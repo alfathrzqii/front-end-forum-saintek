@@ -22,8 +22,8 @@ export default function Home() {
         ]);
 
         // Handling both possible response structures (direct array or data property)
-        const threadsData = threadsRes.data?.data?.threads || threadsRes.data?.threads || (Array.isArray(threadsRes.data) ? threadsRes.data : []);
-        const subforumsData = subforumsRes.data?.data?.subforums || subforumsRes.data?.subforums || (Array.isArray(subforumsRes.data) ? subforumsRes.data : []);
+        const threadsData = threadsRes.data?.data || [];
+        const subforumsData = subforumsRes.data?.data || [];
 
         setThreads(threadsData);
         setSubforums(subforumsData);

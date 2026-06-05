@@ -2,7 +2,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import VoteButton from './VoteButton';
 
 export default function ThreadCard({ thread }) {
-  const { id: threadId, title, body, createdAt, user, subforum, upvotes, downvotes, userVote } = thread;
+  const { id: threadId, title, content, createdAt, author, subforum, _count } = thread;
+  const upvotes = _count?.votes || 0; // Backend currently only gives total votes in _count
+  const downvotes = 0; 
+  const userVote = null;
   const navigate = useNavigate();
 
   const handleCardClick = (e) => {
@@ -26,7 +29,7 @@ export default function ThreadCard({ thread }) {
             </Link>
           )}
           <span>•</span>
-          <span>Posted by u/{user?.username || 'anonymous'}</span>
+          <span>Posted by u/{author?.username || 'anonymous'}</span>
           <span>•</span>
           <span>{new Date(createdAt).toLocaleDateString()}</span>
         </div>
@@ -36,7 +39,7 @@ export default function ThreadCard({ thread }) {
         </Link>
 
         <p className="text-gray-700 text-sm line-clamp-3 mb-4">
-          {body}
+          {content}
         </p>
 
         <div className="flex items-center space-x-4 text-gray-500 text-xs font-bold">
