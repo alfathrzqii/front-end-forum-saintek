@@ -19,22 +19,13 @@ Sebelum project ini dapat dideploy ke production, ada beberapa hal yang sebelumn
 ## Langkah-langkah Lengkap Deployment ke VM (Google Cloud)
 
 ### 1. Setup Cloudflare SSL (Origin Certificate)
-Karena kamu menggunakan mode Strict di Cloudflare, kita perlu membuat Origin Certificate.
-1. Buka dashboard Cloudflare, pilih domain `forumsaintek.my.id`.
-2. Buka menu **SSL/TLS** -> **Origin Server**.
-3. Klik **Create Certificate**. Biarkan setting default (RSA, 15 years), lalu klik **Create**.
-4. Kamu akan mendapatkan dua text box: **Origin Certificate** (PEM) dan **Private Key** (KEY).
-5. Masuk ke VM kamu via SSH.
-6. Buat file sertifikat:
-   ```bash
-   sudo nano /etc/ssl/certs/cloudflare_forumsaintek.pem
-   ```
-   *Paste isi dari kotak "Origin Certificate" ke dalam file ini, lalu save (Ctrl+X, Y, Enter).*
-7. Buat file private key:
-   ```bash
-   sudo nano /etc/ssl/private/cloudflare_forumsaintek.key
-   ```
-   *Paste isi dari kotak "Private Key" ke dalam file ini, lalu save.*
+Karena kamu menggunakan mode "Full" atau "Full (Strict)" di Cloudflare dan kamu sudah memiliki certificate wildcard untuk backend API (`*.forumsaintek.my.id` dan `forumsaintek.my.id`), kita **tidak perlu** membuat file sertifikat baru.
+
+Frontend ini akan menggunakan file yang sama dengan backend:
+- Certificate: `/etc/nginx/ssl/server.pem`
+- Private Key: `/etc/nginx/ssl/server.key`
+
+Pastikan file ini tersedia dan bisa dibaca oleh Nginx. (Konfigurasi `nginx.conf.example` sudah disesuaikan untuk menggunakan path ini).
 
 ### 2. Mempersiapkan Folder untuk Frontend
 Kita akan menempatkan hasil build (folder `dist`) di direktori yang biasa digunakan oleh Nginx.
@@ -92,3 +83,40 @@ Karena kamu sudah melakukan clone repository di VM:
 Pastikan pengaturan DNS di Cloudflare (Menu **DNS**) untuk `forumsaintek.my.id` (A Record) sudah mengarah ke IP Address VM Google Cloud kamu, dan status Proxy-nya **Proxied (Awan Orange)**.
 
 Selamat! Frontend aplikasi Forum Saintek sudah berhasil di-deploy. Buka browser dan akses `https://forumsaintek.my.id`.
+
+---
+
+## Troubleshooting Error 525 (SSL Handshake Failed)
+
+Jika saat mengakses website kamu mendapatkan **Error 525 dari Cloudflare**, ini menandakan bahwa Cloudflare berhasil mencapai VM kamu, tetapi Nginx gagal atau menolak untuk melakukan "Handshake HTTPS".
+
+Berikut adalah beberapa kemungkinan penyebab dan cara menyelesaikannya:
+
+1. **Firewall Internal Ubuntu (UFW) Memblokir Port 443**
+   - Meskipun kamu sudah membuka port HTTPS di Dashboard Google Cloud, OS Ubuntu di VM mungkin masih memblokirnya.
+   - Cek status firewall internal:
+     ```bash
+     sudo ufw status
+     ```
+   - Jika statusnya "active" dan port 443 belum ada, jalankan:
+     ```bash
+     sudo ufw allow 'Nginx Full'
+     ```
+     *(Atau `sudo ufw allow 443/tcp`)*
+
+2. **Konfigurasi Nginx Belum Ter-Link ke `sites-enabled`**
+   - Jika file config frontend belum diaktifkan, Nginx tidak tahu cara merespon permintaan HTTPS ke domain `forumsaintek.my.id`.
+   - Pastikan kamu sudah membuat symlink:
+     ```bash
+     sudo ln -s /etc/nginx/sites-available/forumsaintek.my.id /etc/nginx/sites-enabled/
+     ```
+   - Lakukan test Nginx dan reload:
+     ```bash
+     sudo nginx -t
+     sudo systemctl reload nginx
+     ```
+
+3. **Port 443 Bertabrakan dengan Block Server Lain**
+   - Error 525 sering terjadi jika ada dua block `server {}` untuk Nginx yang menggunakan parameter bertentangan.
+   - Di konfigurasi API (`api.forumsaintek.my.id`), Nginx menggunakan `listen 443 ssl;`.
+   - Kita sudah mencocokkannya di file `nginx.conf.example` untuk frontend dengan menggunakan `listen 443 ssl;` tanpa parameter tambahan (seperti `http2` atau `default_server`). Nginx akan mendeteksi domain mana yang dituju melalui fitur SNI (Server Name Indication) yang dikirimkan oleh Cloudflare, dan menggunakan file `server.pem` (wildcard) untuk meresponnya.
