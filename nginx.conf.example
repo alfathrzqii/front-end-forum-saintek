@@ -1,0 +1,44 @@
+server {
+    listen 80;
+    listen [::]:80;
+    server_name forumsaintek.my.id www.forumsaintek.my.id;
+
+    # Redirect HTTP to HTTPS
+    return 301 https://$host$request_uri;
+}
+
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    server_name forumsaintek.my.id www.forumsaintek.my.id;
+
+    # Cloudflare Origin Certificates
+    ssl_certificate /etc/ssl/certs/cloudflare_forumsaintek.pem;
+    ssl_certificate_key /etc/ssl/private/cloudflare_forumsaintek.key;
+
+    # SSL Configuration (recommended settings)
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_ciphers HIGH:!aNULL:!MD5;
+    ssl_prefer_server_ciphers on;
+
+    # Root directory for the React build
+    root /var/www/forumsaintek.my.id/html;
+    index index.html index.htm;
+
+    # Important for React Router (SPA)
+    # Directs all requests to index.html if the file is not found
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+
+    # Cache static assets for better performance
+    location ~* \.(js|css|png|jpg|jpeg|gif|svg|ico)$ {
+        expires 1y;
+        add_header Cache-Control "public, no-transform";
+    }
+
+    # Deny access to hidden files (e.g. .git, .env)
+    location ~ /\. {
+        deny all;
+    }
+}
