@@ -82,6 +82,10 @@ export default function ThreadDetail() {
     }
   };
 
+  const scrollToComments = () => {
+    document.getElementById('comments-section')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
       <Link to="/" className="inline-flex items-center text-blue-600 hover:text-blue-800 mb-6 transition-colors duration-200">
@@ -123,12 +127,15 @@ export default function ThreadDetail() {
               className="rounded-full px-4"
             />
 
-            <div className="flex items-center space-x-2">
+            <button
+              onClick={scrollToComments}
+              className="flex items-center space-x-2 hover:bg-gray-100 p-1 px-2 rounded transition-colors"
+            >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
               </svg>
-              <span className="font-bold">Comments</span>
-            </div>
+              <span className="font-bold">{_count?.comments || 0} Comments</span>
+            </button>
 
             <button
               onClick={handleShare}
