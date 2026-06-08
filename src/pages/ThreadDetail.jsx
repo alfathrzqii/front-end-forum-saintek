@@ -6,6 +6,7 @@ import { canDeleteThread } from '../utils/auth';
 import VoteButton from '../components/VoteButton';
 import CommentSection from '../components/CommentSection';
 import { ThreadDetailSkeleton } from '../components/Skeleton';
+import Modal from '../components/Modal';
 
 export default function ThreadDetail() {
   const { id } = useParams();
@@ -16,6 +17,8 @@ export default function ThreadDetail() {
   const [error, setError] = useState(null);
   const [isDeleting, setIsDeleting] = useState(false);
   const [showCopied, setShowCopied] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [deleteError, setDeleteError] = useState(null);
 
   useEffect(() => {
     const fetchThread = async () => {
@@ -65,18 +68,21 @@ export default function ThreadDetail() {
     });
   };
 
-  const handleDelete = async () => {
-    if (!window.confirm('Are you sure you want to delete this thread? This action cannot be undone.')) {
-      return;
-    }
+  const handleDelete = () => {
+    setDeleteError(null);
+    setShowDeleteModal(true);
+  };
 
+  const confirmDelete = async () => {
     setIsDeleting(true);
+    setDeleteError(null);
     try {
       await api.delete(`/threads/${id}`);
+      setShowDeleteModal(false);
       navigate('/');
     } catch (err) {
       console.error('Failed to delete thread:', err);
-      alert(err.response?.data?.message || 'Failed to delete thread. Please try again.');
+      setDeleteError(err.response?.data?.message || 'Failed to delete thread. Please try again.');
     } finally {
       setIsDeleting(false);
     }
@@ -96,6 +102,16 @@ export default function ThreadDetail() {
       </Link>
 
       <div className="bg-white rounded-lg shadow-md overflow-hidden">
+        {deleteError && (
+          <div className="bg-red-50 border-b border-red-100 p-3 text-sm text-red-600 flex justify-between items-center">
+            <span>{deleteError}</span>
+            <button onClick={() => setDeleteError(null)} className="text-red-400 hover:text-red-600 transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+        )}
         <div className="p-6">
           {/* Header Info */}
           <div className="flex items-center text-xs text-gray-500 mb-3 space-x-2">
@@ -168,6 +184,18 @@ export default function ThreadDetail() {
         threadId={threadId}
         isThreadAnonymous={subforum?.slug === 'saintekfess'}
       />
+
+      <Modal
+        isOpen={showDeleteModal}
+        onClose={() => setShowDeleteModal(false)}
+        onConfirm={confirmDelete}
+        title="Delete Thread"
+        confirmLabel="Delete"
+        variant="danger"
+        isLoading={isDeleting}
+      >
+        Are you sure you want to delete this thread? This action cannot be undone.
+      </Modal>
     </div>
   );
 }
