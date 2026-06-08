@@ -73,14 +73,14 @@ export default function VoteButton({ threadId, commentId, initialUpvotes = 0, in
   const totalScore = upvotes - downvotes;
 
   return (
-    <div className={`flex items-center space-x-1 bg-gray-100 p-1 px-2 rounded-md ${className}`}>
+    <div className={`flex items-center space-x-1 bg-gray-100 dark:bg-gray-700 p-1 px-2 rounded-md transition-colors duration-200 ${className}`}>
       <button
         onClick={(e) => {
           e.preventDefault();
           e.stopPropagation();
           handleVote('upvote');
         }}
-        className={`hover:bg-gray-200 rounded p-1 transition-colors ${userVote === 1 ? 'text-orange-600' : 'text-gray-500'}`}
+        className={`hover:bg-gray-200 dark:hover:bg-gray-600 rounded p-1 transition-colors ${userVote === 1 ? 'text-orange-600 dark:text-orange-400' : 'text-gray-500 dark:text-gray-400'}`}
         disabled={isLoading}
         title="Upvote"
       >
@@ -89,7 +89,7 @@ export default function VoteButton({ threadId, commentId, initialUpvotes = 0, in
         </svg>
       </button>
 
-      <span className={`font-bold text-sm min-w-[1.5rem] text-center ${userVote === 1 ? 'text-orange-600' : userVote === -1 ? 'text-blue-600' : 'text-gray-700'}`}>
+      <span className={`font-bold text-sm min-w-[1.5rem] text-center ${userVote === 1 ? 'text-orange-600 dark:text-orange-400' : userVote === -1 ? 'text-blue-600 dark:text-blue-400' : 'text-gray-700 dark:text-gray-300'}`}>
         {totalScore}
       </span>
 
@@ -99,7 +99,7 @@ export default function VoteButton({ threadId, commentId, initialUpvotes = 0, in
           e.stopPropagation();
           handleVote('downvote');
         }}
-        className={`hover:bg-gray-200 rounded p-1 transition-colors ${userVote === -1 ? 'text-blue-600' : 'text-gray-500'}`}
+        className={`hover:bg-gray-200 dark:hover:bg-gray-600 rounded p-1 transition-colors ${userVote === -1 ? 'text-blue-600 dark:text-blue-400' : 'text-gray-500 dark:text-gray-400'}`}
         disabled={isLoading}
         title="Downvote"
       >

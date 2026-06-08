@@ -69,9 +69,9 @@ export default function CommentSection({ threadId, isThreadAnonymous = false }) 
   };
 
   return (
-    <div id="comments-section" className="mt-8 bg-white rounded-lg shadow-md p-6">
-      <h3 className="text-xl font-bold mb-6 text-gray-900 flex items-center">
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-2 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <div id="comments-section" className="mt-8 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm p-6 transition-colors duration-200">
+      <h3 className="text-xl font-bold mb-6 text-gray-900 dark:text-gray-100 flex items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-2 text-blue-600 dark:text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
         </svg>
         Comments ({flatComments.length})
@@ -87,7 +87,7 @@ export default function CommentSection({ threadId, isThreadAnonymous = false }) 
               rows={isExpanded || newComment.trim() ? 3 : 1}
               onFocus={() => setIsExpanded(true)}
               onBlur={() => setIsExpanded(false)}
-              className="w-full px-4 py-3 border-2 border-gray-100 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-gray-50 resize-none transition-all duration-200 outline-none"
+              className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 resize-none transition-all duration-200 outline-none"
               placeholder={`Write a comment as u/${currentUser?.username || 'user'}...`}
               value={newComment}
               onChange={(e) => setNewComment(e.target.value)}
@@ -107,9 +107,9 @@ export default function CommentSection({ threadId, isThreadAnonymous = false }) 
           )}
         </form>
       ) : (
-        <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-8 text-center">
-          <p className="text-gray-600">
-            Please <Link to="/login" className="text-blue-600 font-bold hover:underline">Login</Link> or <Link to="/register" className="text-blue-600 font-bold hover:underline">Register</Link> to leave a comment.
+        <div className="bg-gray-50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-600 rounded-lg p-4 mb-8 text-center transition-colors duration-200">
+          <p className="text-gray-600 dark:text-gray-400">
+            Please <Link to="/login" className="text-blue-600 dark:text-blue-400 font-bold hover:underline">Login</Link> or <Link to="/register" className="text-blue-600 dark:text-blue-400 font-bold hover:underline">Register</Link> to leave a comment.
           </p>
         </div>
       )}
@@ -136,7 +136,7 @@ export default function CommentSection({ threadId, isThreadAnonymous = false }) 
           ))}
         </div>
       ) : (
-        <div className="text-center py-10 text-gray-500 italic">
+        <div className="text-center py-10 text-gray-500 dark:text-gray-400 italic">
           No comments yet. Be the first to share your thoughts!
         </div>
       )}

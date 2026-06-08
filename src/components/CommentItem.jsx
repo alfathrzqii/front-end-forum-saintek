@@ -36,15 +36,15 @@ export default function CommentItem({ comment, threadId, onCommentPosted, depth 
   const authorName = isThreadAnonymous ? 'anonymous' : (comment.author?.username || 'anonymous');
 
   return (
-    <div className={`mt-4 ${depth > 0 ? 'ml-2 md:ml-6 border-l-2 border-blue-50 pl-4' : ''}`}>
-      <div className="group transition-all duration-200 hover:border-l-2 hover:border-blue-200 -ml-4 pl-4">
-        <div className="flex items-center text-xs text-gray-500 mb-2">
-          <span className="font-bold text-gray-900 mr-2">u/{authorName}</span>
+    <div className={`mt-4 ${depth > 0 ? 'ml-2 md:ml-6 border-l-2 border-blue-50 dark:border-blue-900/30 pl-4' : ''}`}>
+      <div className="group transition-all duration-200 hover:border-l-2 hover:border-blue-200 dark:hover:border-blue-800 -ml-4 pl-4">
+        <div className="flex items-center text-xs text-gray-500 dark:text-gray-400 mb-2">
+          <span className="font-bold text-gray-900 dark:text-gray-200 mr-2">u/{authorName}</span>
           <span>•</span>
           <span className="ml-2">{new Date(comment.createdAt).toLocaleString()}</span>
         </div>
 
-        <div className="text-gray-800 text-sm leading-relaxed whitespace-pre-wrap mb-2">
+        <div className="text-gray-800 dark:text-gray-300 text-sm leading-relaxed whitespace-pre-wrap mb-2">
           {comment.content}
         </div>
 
@@ -60,7 +60,7 @@ export default function CommentItem({ comment, threadId, onCommentPosted, depth 
           {token && (
             <button
               onClick={() => setIsReplying(!isReplying)}
-              className="text-xs font-bold text-gray-500 hover:text-blue-600 flex items-center transition-colors"
+              className="text-xs font-bold text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 flex items-center transition-colors"
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6" />
@@ -74,7 +74,7 @@ export default function CommentItem({ comment, threadId, onCommentPosted, depth 
           <div className="mb-4 animate-fadeIn">
             <form onSubmit={handleReplySubmit}>
               <textarea
-                className="w-full px-3 py-2 text-sm border-2 border-gray-100 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-gray-50 resize-none outline-none"
+                className="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 resize-none outline-none transition-colors duration-200"
                 placeholder={`Reply to u/${authorName}...`}
                 rows="3"
                 value={replyContent}
@@ -85,7 +85,7 @@ export default function CommentItem({ comment, threadId, onCommentPosted, depth 
                 <button
                   type="button"
                   onClick={() => setIsReplying(false)}
-                  className="px-4 py-1 text-xs font-bold text-gray-500 hover:text-gray-700 transition"
+                  className="px-4 py-1 text-xs font-bold text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition"
                 >
                   Cancel
                 </button>

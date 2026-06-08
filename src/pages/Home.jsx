@@ -46,7 +46,7 @@ export default function Home() {
   if (error) {
     return (
       <div className="max-w-7xl mx-auto px-4 py-8">
-        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+        <div className="bg-red-100 dark:bg-red-900/30 border border-red-400 dark:border-red-800/50 text-red-700 dark:text-red-400 px-4 py-3 rounded relative transition-colors duration-200" role="alert">
           <span className="block sm:inline">{error}</span>
         </div>
       </div>
@@ -55,11 +55,28 @@ export default function Home() {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div className="flex flex-col lg:flex-row gap-8">
+      <div className="flex flex-col lg:flex-row-reverse gap-8">
+        {/* Sidebar: Subforums (Appears on top on mobile due to flex-col and DOM order if we swapped, but flex-col-reverse or changing order is better. Let's use order classes) */}
+        <aside className="w-full lg:w-1/3 order-1 lg:order-2">
+          <div className="sticky top-8">
+            {loading ? (
+              <SubforumSidebarSkeleton />
+            ) : (
+              <SubforumSidebar subforums={subforums} />
+            )}
+            <div className="hidden lg:block mt-4 p-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-sm transition-colors duration-200">
+              <h3 className="font-bold text-sm mb-2 dark:text-gray-100">About Forum SAINTEK</h3>
+              <p className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed">
+                Welcome to the SAINTEK community! A place to discuss Science, Technology, Engineering, and Mathematics.
+              </p>
+            </div>
+          </div>
+        </aside>
+
         {/* Main Content: Feed Thread */}
-        <div className="w-full lg:w-2/3">
+        <div className="w-full lg:w-2/3 order-2 lg:order-1">
           <div className="flex justify-between items-center mb-6">
-            <h1 className="text-2xl font-bold">Recent Threads</h1>
+            <h1 className="text-2xl font-bold dark:text-gray-100">Recent Threads</h1>
             {!loading && token && (
               <Link
                 to="/create-thread"
@@ -89,28 +106,11 @@ export default function Home() {
               ))}
             </div>
           ) : (
-            <div className="bg-white p-8 rounded-md shadow text-center">
-              <p className="text-gray-500">No threads found. Be the first to start a conversation!</p>
+            <div className="bg-white dark:bg-gray-800 p-8 rounded-md shadow text-center transition-colors duration-200">
+              <p className="text-gray-500 dark:text-gray-400">No threads found. Be the first to start a conversation!</p>
             </div>
           )}
         </div>
-
-        {/* Sidebar: Subforums */}
-        <aside className="w-full lg:w-1/3">
-          <div className="sticky top-8">
-            {loading ? (
-              <SubforumSidebarSkeleton />
-            ) : (
-              <SubforumSidebar subforums={subforums} />
-            )}
-            <div className="mt-4 p-4 bg-white border border-gray-200 rounded-md shadow-sm">
-              <h3 className="font-bold text-sm mb-2">About Forum SAINTEK</h3>
-              <p className="text-xs text-gray-600 leading-relaxed">
-                Welcome to the SAINTEK community! A place to discuss Science, Technology, Engineering, and Mathematics.
-              </p>
-            </div>
-          </div>
-        </aside>
       </div>
     </div>
   );

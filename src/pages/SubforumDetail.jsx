@@ -71,27 +71,46 @@ export default function SubforumDetail() {
       {loading ? (
         <SubforumBannerSkeleton />
       ) : (
-        <div className="bg-white border border-gray-200 rounded-md shadow-sm mb-8 overflow-hidden">
+        <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-sm mb-8 overflow-hidden transition-colors duration-200">
           <div className="h-24 bg-blue-600"></div>
           <div className="px-6 py-4 flex flex-col md:flex-row md:items-end -mt-12 md:-mt-8 gap-4">
-            <div className="bg-white p-2 rounded-full border-4 border-white shadow-md inline-block">
-              <div className="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center text-blue-600 text-2xl font-bold">
+            <div className="bg-white dark:bg-gray-800 p-2 rounded-full border-4 border-white dark:border-gray-800 shadow-md inline-block transition-colors duration-200">
+              <div className="bg-blue-100 dark:bg-gray-700 w-16 h-16 rounded-full flex items-center justify-center text-blue-600 dark:text-blue-400 text-2xl font-bold transition-colors duration-200">
                 s/
               </div>
             </div>
             <div className="mb-2">
-              <h1 className="text-2xl font-extrabold text-gray-900">s/{subforum.name}</h1>
-              <p className="text-gray-600">{subforum.description}</p>
+              <h1 className="text-2xl font-extrabold text-gray-900 dark:text-gray-100">s/{subforum.name}</h1>
+              <p className="text-gray-600 dark:text-gray-400">{subforum.description}</p>
             </div>
           </div>
         </div>
       )}
 
-      <div className="flex flex-col lg:flex-row gap-8">
+      <div className="flex flex-col lg:flex-row-reverse gap-8">
+        {/* Sidebar */}
+        <aside className="w-full lg:w-1/3 order-1 lg:order-2">
+          <div className="sticky top-8">
+            {loading ? (
+              <SubforumSidebarSkeleton />
+            ) : (
+              <>
+                <SubforumSidebar subforums={subforums} />
+                <div className="hidden lg:block mt-4 p-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-sm transition-colors duration-200">
+                  <h3 className="font-bold text-sm mb-2 dark:text-gray-100">About s/{subforum.name}</h3>
+                  <p className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed">
+                    {subforum.description || `Welcome to the ${subforum.name} subforum!`}
+                  </p>
+                </div>
+              </>
+            )}
+          </div>
+        </aside>
+
         {/* Main Content: Thread List */}
-        <div className="w-full lg:w-2/3">
+        <div className="w-full lg:w-2/3 order-2 lg:order-1">
           <div className="flex justify-between items-center mb-6">
-            <h2 className="text-xl font-bold text-gray-900">
+            <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">
               {loading ? (
                 <div className="h-7 w-48 bg-gray-200 rounded animate-pulse"></div>
               ) : (
@@ -128,36 +147,17 @@ export default function SubforumDetail() {
               ))}
             </div>
           ) : (
-            <div className="bg-white p-8 rounded-md shadow text-center border border-gray-200">
-              <p className="text-gray-500">No threads yet in this subforum. Why not start one?</p>
+            <div className="bg-white dark:bg-gray-800 p-8 rounded-md shadow text-center border border-gray-200 dark:border-gray-700 transition-colors duration-200">
+              <p className="text-gray-500 dark:text-gray-400">No threads yet in this subforum. Why not start one?</p>
               <Link
                 to={`/create-thread?subforum=${subforum.slug}`}
-                className="inline-block mt-4 text-blue-600 font-bold hover:underline"
+                className="inline-block mt-4 text-blue-600 dark:text-blue-400 font-bold hover:underline"
               >
                 Create the first thread
               </Link>
             </div>
           )}
         </div>
-
-        {/* Sidebar */}
-        <aside className="w-full lg:w-1/3">
-          <div className="sticky top-8">
-            {loading ? (
-              <SubforumSidebarSkeleton />
-            ) : (
-              <>
-                <SubforumSidebar subforums={subforums} />
-                <div className="mt-4 p-4 bg-white border border-gray-200 rounded-md shadow-sm">
-                  <h3 className="font-bold text-sm mb-2">About s/{subforum.name}</h3>
-                  <p className="text-xs text-gray-600 leading-relaxed">
-                    {subforum.description || `Welcome to the ${subforum.name} subforum!`}
-                  </p>
-                </div>
-              </>
-            )}
-          </div>
-        </aside>
       </div>
     </div>
   );

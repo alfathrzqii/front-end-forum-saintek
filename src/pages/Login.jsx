@@ -53,25 +53,25 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
-      <div className="max-w-md w-full bg-white rounded-lg shadow-md p-8">
-        <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">Login</h2>
+    <div className="flex items-center justify-center py-16 px-4">
+      <div className="max-w-md w-full bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-8 transition-colors duration-200">
+        <h2 className="text-3xl font-bold text-center text-gray-800 dark:text-gray-100 mb-8">Login</h2>
 
         {error && (
-          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4" role="alert">
+          <div className="bg-red-100 dark:bg-red-900/30 border border-red-400 dark:border-red-800/50 text-red-700 dark:text-red-400 px-4 py-3 rounded mb-4 transition-colors duration-200" role="alert">
             <span className="block sm:inline">{error}</span>
           </div>
         )}
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="identifier">
+            <label className="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2" htmlFor="identifier">
               Email or Username
             </label>
             <input
               id="identifier"
               type="text"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 transition-colors duration-200"
               placeholder="Email or username"
               value={identifier}
               onChange={(e) => setIdentifier(e.target.value)}
@@ -80,13 +80,13 @@ export default function Login() {
           </div>
 
           <div>
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
+            <label className="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2" htmlFor="password">
               Password
             </label>
             <input
               id="password"
               type="password"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 transition-colors duration-200"
               placeholder="••••••••"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -103,9 +103,9 @@ export default function Login() {
           </button>
         </form>
 
-        <p className="mt-6 text-center text-gray-600 text-sm">
+        <p className="mt-6 text-center text-gray-600 dark:text-gray-400 text-sm">
           Don't have an account?{' '}
-          <Link to="/register" className="text-blue-600 hover:underline font-medium">
+          <Link to="/register" className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 hover:underline font-medium">
             Register here
           </Link>
         </p>

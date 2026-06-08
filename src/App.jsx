@@ -6,11 +6,23 @@ import CreateThread from './pages/CreateThread';
 import ThreadDetail from './pages/ThreadDetail';
 import SubforumDetail from './pages/SubforumDetail';
 import Navbar from './components/Navbar';
+import useThemeStore from './store/themeStore';
+import { useEffect } from 'react';
 
 function App() {
+  const { theme } = useThemeStore();
+
+  useEffect(() => {
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [theme]);
+
   return (
     <Router>
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-200">
         <Navbar />
         <main>
           <Routes>

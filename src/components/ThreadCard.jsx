@@ -65,11 +65,11 @@ export default function ThreadCard({ thread, onDelete }) {
 
   return (
     <div
-      className="bg-white border border-gray-200 rounded-md shadow-sm hover:border-gray-400 transition-colors duration-200 mb-4 overflow-hidden cursor-pointer"
+      className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-sm hover:border-gray-400 dark:hover:border-gray-500 transition-colors duration-200 mb-4 overflow-hidden cursor-pointer"
       onClick={handleCardClick}
     >
       {deleteError && (
-        <div className="bg-red-50 border-b border-red-100 p-2 text-xs text-red-600 flex justify-between items-center">
+        <div className="bg-red-50 dark:bg-red-900/30 border-b border-red-100 dark:border-red-800/50 p-2 text-xs text-red-600 dark:text-red-400 flex justify-between items-center">
           <span>{deleteError}</span>
           <button onClick={(e) => { e.stopPropagation(); setDeleteError(null); }} className="text-red-400 hover:text-red-600">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -79,9 +79,9 @@ export default function ThreadCard({ thread, onDelete }) {
         </div>
       )}
       <div className="p-4">
-        <div className="flex items-center text-xs text-gray-500 mb-2 space-x-2">
+        <div className="flex items-center text-xs text-gray-500 dark:text-gray-400 mb-2 space-x-2">
           {subforum && (
-            <Link to={`/subforums/${subforum.slug}`} className="font-bold text-gray-900 hover:underline">
+            <Link to={`/subforums/${subforum.slug}`} className="font-bold text-gray-900 dark:text-gray-200 hover:underline">
               s/{subforum.name}
             </Link>
           )}
@@ -92,14 +92,14 @@ export default function ThreadCard({ thread, onDelete }) {
         </div>
 
         <Link to={`/threads/${id}`} className="block">
-          <h2 className="text-lg font-semibold text-gray-900 mb-2 hover:underline">{title}</h2>
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2 hover:underline">{title}</h2>
         </Link>
 
-        <p className="text-gray-700 text-sm mb-4">
+        <p className="text-gray-700 dark:text-gray-300 text-sm mb-4">
           {content?.length > 150 ? (
             <>
               {content.substring(0, 150)}...
-              <Link to={`/threads/${id}`} className="text-blue-600 hover:underline ml-1 font-medium">
+              <Link to={`/threads/${id}`} className="text-blue-600 dark:text-blue-400 hover:underline ml-1 font-medium">
                 view more
               </Link>
             </>
@@ -108,7 +108,7 @@ export default function ThreadCard({ thread, onDelete }) {
           )}
         </p>
 
-        <div className="flex items-center space-x-4 text-gray-500 text-xs font-bold">
+        <div className="flex items-center space-x-4 text-gray-500 dark:text-gray-400 text-xs font-bold">
           <VoteButton
             threadId={id}
             initialUpvotes={upvotes}
@@ -117,7 +117,7 @@ export default function ThreadCard({ thread, onDelete }) {
             className="rounded-sm"
           />
 
-          <Link to={`/threads/${id}`} className="flex items-center space-x-1 hover:bg-gray-100 p-1 px-2 rounded-sm transition-colors">
+          <Link to={`/threads/${id}`} className="flex items-center space-x-1 hover:bg-gray-100 dark:hover:bg-gray-700 p-1 px-2 rounded-sm transition-colors">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
             </svg>
@@ -126,7 +126,7 @@ export default function ThreadCard({ thread, onDelete }) {
 
           <button
             onClick={handleShare}
-            className="flex items-center space-x-1 hover:bg-gray-100 p-1 px-2 rounded-sm transition-colors relative"
+            className="flex items-center space-x-1 hover:bg-gray-100 dark:hover:bg-gray-700 p-1 px-2 rounded-sm transition-colors relative"
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
@@ -138,7 +138,7 @@ export default function ThreadCard({ thread, onDelete }) {
             <button
               onClick={handleDelete}
               disabled={isDeleting}
-              className={`flex items-center space-x-1 text-red-500 hover:bg-red-50 p-1 px-2 rounded-sm transition-colors ${isDeleting ? 'opacity-50 cursor-not-allowed' : ''}`}
+              className={`flex items-center space-x-1 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/30 p-1 px-2 rounded-sm transition-colors ${isDeleting ? 'opacity-50 cursor-not-allowed' : ''}`}
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />

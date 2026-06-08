@@ -86,25 +86,25 @@ export default function CreateThread() {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
-      <div className="bg-white rounded-lg shadow-md p-6">
-        <h1 className="text-2xl font-bold mb-6 text-gray-900">Create a New Thread</h1>
+      <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm p-6 transition-colors duration-200">
+        <h1 className="text-2xl font-bold mb-6 text-gray-900 dark:text-gray-100">Create a New Thread</h1>
 
         {error && (
-          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6" role="alert">
+          <div className="bg-red-100 dark:bg-red-900/30 border border-red-400 dark:border-red-800/50 text-red-700 dark:text-red-400 px-4 py-3 rounded mb-6 transition-colors duration-200" role="alert">
             <span className="block sm:inline">{error}</span>
           </div>
         )}
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label htmlFor="subforum" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="subforum" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
               Choose a subforum
             </label>
             <select
               id="subforum"
               value={subforumSlug}
               onChange={(e) => setSubforumSlug(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors duration-200"
               required
             >
               <option value="" disabled>Select a subforum</option>
@@ -117,7 +117,7 @@ export default function CreateThread() {
           </div>
 
           <div>
-            <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="title" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
               Title
             </label>
             <input
@@ -126,14 +126,14 @@ export default function CreateThread() {
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="What's on your mind?"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 transition-colors duration-200"
               required
               maxLength={255}
             />
           </div>
 
           <div>
-            <label htmlFor="content" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="content" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
               Content
             </label>
             <textarea
@@ -142,7 +142,7 @@ export default function CreateThread() {
               value={content}
               onChange={(e) => setContent(e.target.value)}
               placeholder="Share your thoughts..."
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 transition-colors duration-200"
               required
             ></textarea>
           </div>
@@ -151,7 +151,7 @@ export default function CreateThread() {
             <button
               type="button"
               onClick={() => navigate('/')}
-              className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 transition duration-200"
+              className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition duration-200"
             >
               Cancel
             </button>

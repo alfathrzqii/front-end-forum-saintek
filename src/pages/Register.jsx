@@ -43,25 +43,25 @@ export default function Register() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4 py-12">
-      <div className="max-w-md w-full bg-white rounded-lg shadow-md p-8">
-        <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">Register</h2>
+    <div className="flex items-center justify-center py-16 px-4">
+      <div className="max-w-md w-full bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-8 transition-colors duration-200">
+        <h2 className="text-3xl font-bold text-center text-gray-800 dark:text-gray-100 mb-8">Register</h2>
 
         {error && (
-          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4" role="alert">
+          <div className="bg-red-100 dark:bg-red-900/30 border border-red-400 dark:border-red-800/50 text-red-700 dark:text-red-400 px-4 py-3 rounded mb-4 transition-colors duration-200" role="alert">
             <span className="block sm:inline">{error}</span>
           </div>
         )}
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="fullName">
+            <label className="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-1" htmlFor="fullName">
               Full Name
             </label>
             <input
               id="fullName"
               type="text"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 transition-colors duration-200"
               placeholder="Your full name"
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
@@ -70,13 +70,13 @@ export default function Register() {
           </div>
 
           <div>
-            <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="username">
+            <label className="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-1" htmlFor="username">
               Username
             </label>
             <input
               id="username"
               type="text"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 transition-colors duration-200"
               placeholder="Your username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
@@ -85,13 +85,13 @@ export default function Register() {
           </div>
 
           <div>
-            <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="email">
+            <label className="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-1" htmlFor="email">
               Email (University Domain)
             </label>
             <input
               id="email"
               type="email"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 transition-colors duration-200"
               placeholder="227611001@mhs.uinsaid.ac.id"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -100,13 +100,13 @@ export default function Register() {
           </div>
 
           <div>
-            <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="prodi">
+            <label className="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-1" htmlFor="prodi">
               Program Studi
             </label>
             <input
               id="prodi"
               type="text"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 transition-colors duration-200"
               placeholder="Sains Data"
               value={prodi}
               onChange={(e) => setProdi(e.target.value)}
@@ -115,13 +115,13 @@ export default function Register() {
           </div>
 
           <div>
-            <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="password">
+            <label className="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-1" htmlFor="password">
               Password
             </label>
             <input
               id="password"
               type="password"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 transition-colors duration-200"
               placeholder="••••••••"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -138,9 +138,9 @@ export default function Register() {
           </button>
         </form>
 
-        <p className="mt-6 text-center text-gray-600 text-sm">
+        <p className="mt-6 text-center text-gray-600 dark:text-gray-400 text-sm">
           Already have an account?{' '}
-          <Link to="/login" className="text-blue-600 hover:underline font-medium">
+          <Link to="/login" className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 hover:underline font-medium">
             Login here
           </Link>
         </p>
