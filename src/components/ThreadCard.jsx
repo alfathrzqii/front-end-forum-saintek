@@ -1,12 +1,42 @@
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import api from '../services/api';
+import useAuthStore from '../store/authStore';
+import { canDeleteThread } from '../utils/auth';
 import VoteButton from './VoteButton';
 
-export default function ThreadCard({ thread }) {
+export default function ThreadCard({ thread, onDelete }) {
   const { id, title, content, createdAt, author, subforum, _count } = thread;
   const upvotes = _count?.votes || 0; // Backend currently only gives total votes in _count
   const downvotes = 0; 
   const userVote = null;
   const navigate = useNavigate();
+  const { user: currentUser } = useAuthStore();
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  const canDelete = canDeleteThread(currentUser, thread);
+
+  const handleDelete = async (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (!window.confirm('Are you sure you want to delete this thread?')) {
+      return;
+    }
+
+    setIsDeleting(true);
+    try {
+      await api.delete(`/threads/${id}`);
+      if (onDelete) {
+        onDelete(id);
+      }
+    } catch (err) {
+      console.error('Failed to delete thread:', err);
+      alert(err.response?.data?.message || 'Failed to delete thread. Please try again.');
+    } finally {
+      setIsDeleting(false);
+    }
+  };
 
   const handleCardClick = (e) => {
     // Navigate to thread detail if the click wasn't on a link or button
@@ -66,6 +96,19 @@ export default function ThreadCard({ thread }) {
             </svg>
             <span>{_count?.comments || 0} Comments</span>
           </Link>
+
+          {canDelete && (
+            <button
+              onClick={handleDelete}
+              disabled={isDeleting}
+              className={`flex items-center space-x-1 text-red-500 hover:bg-red-50 p-1 px-2 rounded-sm transition-colors ${isDeleting ? 'opacity-50 cursor-not-allowed' : ''}`}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+              </svg>
+              <span>{isDeleting ? 'Deleting...' : 'Delete'}</span>
+            </button>
+          )}
         </div>
       </div>
     </div>
