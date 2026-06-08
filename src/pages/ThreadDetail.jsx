@@ -1,15 +1,20 @@
 import { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import api from '../services/api';
+import useAuthStore from '../store/authStore';
+import { canDeleteThread } from '../utils/auth';
 import VoteButton from '../components/VoteButton';
 import CommentSection from '../components/CommentSection';
 import { ThreadDetailSkeleton } from '../components/Skeleton';
 
 export default function ThreadDetail() {
   const { id } = useParams();
+  const navigate = useNavigate();
+  const { user: currentUser } = useAuthStore();
   const [thread, setThread] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
     const fetchThread = async () => {
@@ -48,6 +53,25 @@ export default function ThreadDetail() {
   const upvotes = _count?.votes || 0;
   const downvotes = 0;
   const userVote = null;
+
+  const canDelete = canDeleteThread(currentUser, thread);
+
+  const handleDelete = async () => {
+    if (!window.confirm('Are you sure you want to delete this thread? This action cannot be undone.')) {
+      return;
+    }
+
+    setIsDeleting(true);
+    try {
+      await api.delete(`/threads/${id}`);
+      navigate('/');
+    } catch (err) {
+      console.error('Failed to delete thread:', err);
+      alert(err.response?.data?.message || 'Failed to delete thread. Please try again.');
+    } finally {
+      setIsDeleting(false);
+    }
+  };
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
@@ -96,6 +120,19 @@ export default function ThreadDetail() {
               </svg>
               <span className="font-bold">Comments</span>
             </div>
+
+            {canDelete && (
+              <button
+                onClick={handleDelete}
+                disabled={isDeleting}
+                className={`flex items-center space-x-1 text-red-500 hover:bg-red-50 p-1 px-2 rounded transition-colors ${isDeleting ? 'opacity-50 cursor-not-allowed' : ''}`}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                </svg>
+                <span className="font-bold">{isDeleting ? 'Deleting...' : 'Delete'}</span>
+              </button>
+            )}
           </div>
         </div>
       </div>

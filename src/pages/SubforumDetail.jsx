@@ -48,6 +48,10 @@ export default function SubforumDetail() {
     fetchSubforumData();
   }, [slug]);
 
+  const handleDeleteThread = (deletedThreadId) => {
+    setThreads((prevThreads) => prevThreads.filter((t) => t.id !== deletedThreadId));
+  };
+
   if (error || (!loading && !subforum)) {
     return (
       <div className="max-w-7xl mx-auto px-4 py-8">
@@ -103,7 +107,11 @@ export default function SubforumDetail() {
           ) : threads.length > 0 ? (
             <div className="space-y-4">
               {threads.map((thread) => (
-                <ThreadCard key={thread.id} thread={thread} />
+                <ThreadCard
+                  key={thread.id}
+                  thread={thread}
+                  onDelete={handleDeleteThread}
+                />
               ))}
             </div>
           ) : (
