@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import api from '../services/api';
 import useAuthStore from '../store/authStore';
 
@@ -13,6 +13,8 @@ export default function CreateThread() {
 
   const { token } = useAuthStore();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const prefilledSubforum = searchParams.get('subforum');
 
   useEffect(() => {
     if (!token) {
@@ -25,7 +27,10 @@ export default function CreateThread() {
         const response = await api.get('/subforums');
         const subforumsData = response.data?.data || [];
         setSubforums(subforumsData);
-        if (subforumsData.length > 0) {
+
+        if (prefilledSubforum && subforumsData.some(s => s.slug === prefilledSubforum)) {
+          setSubforumSlug(prefilledSubforum);
+        } else if (subforumsData.length > 0) {
           setSubforumSlug(subforumsData[0].slug);
         }
       } catch (err) {
@@ -35,7 +40,7 @@ export default function CreateThread() {
     };
 
     fetchSubforums();
-  }, [token, navigate]);
+  }, [token, navigate, prefilledSubforum]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

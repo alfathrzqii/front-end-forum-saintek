@@ -110,7 +110,7 @@ export default function SubforumDetail() {
             <div className="bg-white p-8 rounded-md shadow text-center border border-gray-200">
               <p className="text-gray-500">No threads yet in this subforum. Why not start one?</p>
               <Link
-                to="/create-thread"
+                to={`/create-thread?subforum=${subforum.slug}`}
                 className="inline-block mt-4 text-blue-600 font-bold hover:underline"
               >
                 Create the first thread
