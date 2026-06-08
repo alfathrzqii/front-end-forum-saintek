@@ -4,8 +4,10 @@ import api from '../services/api';
 import ThreadCard from '../components/ThreadCard';
 import SubforumSidebar from '../components/SubforumSidebar';
 import { ThreadCardSkeleton, SubforumSidebarSkeleton, SubforumBannerSkeleton } from '../components/Skeleton';
+import useAuthStore from '../store/authStore';
 
 export default function SubforumDetail() {
+  const { token } = useAuthStore();
   const { slug } = useParams();
   const [subforum, setSubforum] = useState(null);
   const [threads, setThreads] = useState([]);
@@ -88,7 +90,7 @@ export default function SubforumDetail() {
       <div className="flex flex-col lg:flex-row gap-8">
         {/* Main Content: Thread List */}
         <div className="w-full lg:w-2/3">
-          <div className="mb-6">
+          <div className="flex justify-between items-center mb-6">
             <h2 className="text-xl font-bold text-gray-900">
               {loading ? (
                 <div className="h-7 w-48 bg-gray-200 rounded animate-pulse"></div>
@@ -96,6 +98,17 @@ export default function SubforumDetail() {
                 `Threads in s/${subforum.name}`
               )}
             </h2>
+            {!loading && token && (
+              <Link
+                to={`/create-thread?subforum=${subforum.slug}`}
+                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-bold transition duration-200 flex items-center"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clipRule="evenodd" />
+                </svg>
+                Create Thread
+              </Link>
+            )}
           </div>
 
           {loading ? (
