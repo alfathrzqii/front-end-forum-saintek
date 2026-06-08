@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import api from '../services/api';
 import ThreadCard from '../components/ThreadCard';
 import SubforumSidebar from '../components/SubforumSidebar';
+import { ThreadCardSkeleton, SubforumSidebarSkeleton } from '../components/Skeleton';
 import useAuthStore from '../store/authStore';
 
 export default function Home() {
@@ -38,14 +39,6 @@ export default function Home() {
     fetchData();
   }, []);
 
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-      </div>
-    );
-  }
-
   if (error) {
     return (
       <div className="max-w-7xl mx-auto px-4 py-8">
@@ -63,7 +56,7 @@ export default function Home() {
         <div className="w-full lg:w-2/3">
           <div className="flex justify-between items-center mb-6">
             <h1 className="text-2xl font-bold">Recent Threads</h1>
-            {token && (
+            {!loading && token && (
               <Link
                 to="/create-thread"
                 className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-bold transition duration-200 flex items-center"
@@ -75,7 +68,13 @@ export default function Home() {
               </Link>
             )}
           </div>
-          {threads.length > 0 ? (
+          {loading ? (
+            <div className="space-y-4">
+              {[1, 2, 3, 4, 5].map((i) => (
+                <ThreadCardSkeleton key={i} />
+              ))}
+            </div>
+          ) : threads.length > 0 ? (
             <div className="space-y-4">
               {threads.map((thread) => (
                 <ThreadCard key={thread.id} thread={thread} />
@@ -91,7 +90,11 @@ export default function Home() {
         {/* Sidebar: Subforums */}
         <aside className="w-full lg:w-1/3">
           <div className="sticky top-8">
-            <SubforumSidebar subforums={subforums} />
+            {loading ? (
+              <SubforumSidebarSkeleton />
+            ) : (
+              <SubforumSidebar subforums={subforums} />
+            )}
             <div className="mt-4 p-4 bg-white border border-gray-200 rounded-md shadow-sm">
               <h3 className="font-bold text-sm mb-2">About Forum SAINTEK</h3>
               <p className="text-xs text-gray-600 leading-relaxed">

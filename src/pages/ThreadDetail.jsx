@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import api from '../services/api';
 import VoteButton from '../components/VoteButton';
 import CommentSection from '../components/CommentSection';
+import { ThreadDetailSkeleton } from '../components/Skeleton';
 
 export default function ThreadDetail() {
   const { id } = useParams();
@@ -29,11 +30,7 @@ export default function ThreadDetail() {
   }, [id]);
 
   if (loading) {
-    return (
-      <div className="flex justify-center items-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-      </div>
-    );
+    return <ThreadDetailSkeleton />;
   }
 
   if (error || !thread) {

@@ -4,6 +4,7 @@ import api from '../services/api';
 import useAuthStore from '../store/authStore';
 import { nestComments } from '../utils/commentUtils';
 import CommentItem from './CommentItem';
+import { CommentSkeleton } from './Skeleton';
 
 export default function CommentSection({ threadId, isThreadAnonymous = false }) {
   const { token, user: currentUser } = useAuthStore();
@@ -109,8 +110,10 @@ export default function CommentSection({ threadId, isThreadAnonymous = false }) 
 
       {/* Comments List */}
       {loading ? (
-        <div className="flex justify-center py-10">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+        <div className="space-y-6 py-4">
+          {[1, 2, 3].map((i) => (
+            <CommentSkeleton key={i} />
+          ))}
         </div>
       ) : error ? (
         <div className="text-center py-10 text-red-500">{error}</div>

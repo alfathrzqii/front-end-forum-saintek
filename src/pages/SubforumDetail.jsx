@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import api from '../services/api';
 import ThreadCard from '../components/ThreadCard';
 import SubforumSidebar from '../components/SubforumSidebar';
+import { ThreadCardSkeleton, SubforumSidebarSkeleton, SubforumBannerSkeleton } from '../components/Skeleton';
 
 export default function SubforumDetail() {
   const { slug } = useParams();
@@ -47,15 +48,7 @@ export default function SubforumDetail() {
     fetchSubforumData();
   }, [slug]);
 
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-      </div>
-    );
-  }
-
-  if (error || !subforum) {
+  if (error || (!loading && !subforum)) {
     return (
       <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
@@ -69,29 +62,45 @@ export default function SubforumDetail() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Subforum Banner */}
-      <div className="bg-white border border-gray-200 rounded-md shadow-sm mb-8 overflow-hidden">
-        <div className="h-24 bg-blue-600"></div>
-        <div className="px-6 py-4 flex flex-col md:flex-row md:items-end -mt-12 md:-mt-8 gap-4">
-          <div className="bg-white p-2 rounded-full border-4 border-white shadow-md inline-block">
-            <div className="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center text-blue-600 text-2xl font-bold">
-              s/
+      {loading ? (
+        <SubforumBannerSkeleton />
+      ) : (
+        <div className="bg-white border border-gray-200 rounded-md shadow-sm mb-8 overflow-hidden">
+          <div className="h-24 bg-blue-600"></div>
+          <div className="px-6 py-4 flex flex-col md:flex-row md:items-end -mt-12 md:-mt-8 gap-4">
+            <div className="bg-white p-2 rounded-full border-4 border-white shadow-md inline-block">
+              <div className="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center text-blue-600 text-2xl font-bold">
+                s/
+              </div>
+            </div>
+            <div className="mb-2">
+              <h1 className="text-2xl font-extrabold text-gray-900">s/{subforum.name}</h1>
+              <p className="text-gray-600">{subforum.description}</p>
             </div>
           </div>
-          <div className="mb-2">
-            <h1 className="text-2xl font-extrabold text-gray-900">s/{subforum.name}</h1>
-            <p className="text-gray-600">{subforum.description}</p>
-          </div>
         </div>
-      </div>
+      )}
 
       <div className="flex flex-col lg:flex-row gap-8">
         {/* Main Content: Thread List */}
         <div className="w-full lg:w-2/3">
           <div className="mb-6">
-            <h2 className="text-xl font-bold text-gray-900">Threads in s/{subforum.name}</h2>
+            <h2 className="text-xl font-bold text-gray-900">
+              {loading ? (
+                <div className="h-7 w-48 bg-gray-200 rounded animate-pulse"></div>
+              ) : (
+                `Threads in s/${subforum.name}`
+              )}
+            </h2>
           </div>
 
-          {threads.length > 0 ? (
+          {loading ? (
+            <div className="space-y-4">
+              {[1, 2, 3].map((i) => (
+                <ThreadCardSkeleton key={i} />
+              ))}
+            </div>
+          ) : threads.length > 0 ? (
             <div className="space-y-4">
               {threads.map((thread) => (
                 <ThreadCard key={thread.id} thread={thread} />
@@ -113,13 +122,19 @@ export default function SubforumDetail() {
         {/* Sidebar */}
         <aside className="w-full lg:w-1/3">
           <div className="sticky top-8">
-            <SubforumSidebar subforums={subforums} />
-            <div className="mt-4 p-4 bg-white border border-gray-200 rounded-md shadow-sm">
-              <h3 className="font-bold text-sm mb-2">About s/{subforum.name}</h3>
-              <p className="text-xs text-gray-600 leading-relaxed">
-                {subforum.description || `Welcome to the ${subforum.name} subforum!`}
-              </p>
-            </div>
+            {loading ? (
+              <SubforumSidebarSkeleton />
+            ) : (
+              <>
+                <SubforumSidebar subforums={subforums} />
+                <div className="mt-4 p-4 bg-white border border-gray-200 rounded-md shadow-sm">
+                  <h3 className="font-bold text-sm mb-2">About s/{subforum.name}</h3>
+                  <p className="text-xs text-gray-600 leading-relaxed">
+                    {subforum.description || `Welcome to the ${subforum.name} subforum!`}
+                  </p>
+                </div>
+              </>
+            )}
           </div>
         </aside>
       </div>
