@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import api from '../services/api';
 import useAuthStore from '../store/authStore';
 
-export default function VoteButton({ threadId, initialUpvotes = 0, initialDownvotes = 0, initialUserVote = 0, className = "" }) {
+export default function VoteButton({ threadId, commentId, initialUpvotes = 0, initialDownvotes = 0, initialUserVote = 0, className = "" }) {
   const { token } = useAuthStore();
   const navigate = useNavigate();
   const [upvotes, setUpvotes] = useState(initialUpvotes);
@@ -21,10 +21,17 @@ export default function VoteButton({ threadId, initialUpvotes = 0, initialDownvo
 
     setIsLoading(true);
     try {
-      await api.post('/votes', {
-        threadId,
+      const payload = {
         type: voteType === 'upvote' ? 'UPVOTE' : 'DOWNVOTE',
-      });
+      };
+
+      if (commentId) {
+        payload.commentId = commentId;
+      } else {
+        payload.threadId = threadId;
+      }
+
+      await api.post('/votes', payload);
 
       // Update state based on backend response
       // Backend returns { action: 'created' | 'updated' | 'deleted' }

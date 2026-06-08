@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import api from '../services/api';
 import useAuthStore from '../store/authStore';
+import VoteButton from './VoteButton';
 
 export default function CommentItem({ comment, threadId, onCommentPosted, depth = 0, isThreadAnonymous = false }) {
   const { token } = useAuthStore();
@@ -48,6 +49,14 @@ export default function CommentItem({ comment, threadId, onCommentPosted, depth 
         </div>
 
         <div className="flex items-center space-x-4 mb-4">
+          <VoteButton
+            commentId={comment.id}
+            initialUpvotes={comment._count?.votes || 0}
+            initialDownvotes={0}
+            initialUserVote={0}
+            className="scale-90 -ml-2 mr-2"
+          />
+
           {token && (
             <button
               onClick={() => setIsReplying(!isReplying)}
