@@ -1,6 +1,6 @@
 # Forum SAINTEK
 
-Forum SAINTEK adalah platform diskusi daring yang dirancang khusus untuk mahasiswa di bidang Sains dan Teknologi (SAINTEK). Proyek ini merupakan aplikasi web *front-end* yang dibangun menggunakan React, Vite, dan Tailwind CSS, serta terhubung dengan Express JS Back-End melalui REST API.
+Forum SAINTEK adalah platform diskusi daring yang dirancang khusus untuk mahasiswa Fakultas Sains dan Teknologi (SAINTEK). Proyek ini merupakan aplikasi web *front-end* yang dibangun menggunakan React, Vite, dan Tailwind CSS, serta terhubung dengan Express JS Back-End melalui REST API.
 
 ## Fitur Utama
 
@@ -28,7 +28,7 @@ Forum SAINTEK adalah platform diskusi daring yang dirancang khusus untuk mahasis
 ### Langkah Instalasi
 1. Clone repositori ini:
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/izzanbcy/front-end-forum-saintek
    cd forum-saintek
    ```
 
@@ -58,28 +58,3 @@ Proyek ini mengikuti struktur folder berikut sesuai dengan panduan pengembangan:
 - `src/store`: Manajemen state menggunakan Zustand (seperti `authStore.js`).
 - `src/services`: Konfigurasi Axios dan fungsi untuk pemanggilan API.
 
-## Referensi API
-
-Aplikasi ini berinteraksi dengan API Backend melalui endpoint berikut:
-
-### Autentikasi
-- `POST /api/users`: Registrasi user baru.
-- `GET /api/users/me`: Mendapatkan profil user saat ini.
-- `POST /api/authentications`: Login user.
-- `DELETE /api/authentications`: Logout user.
-
-### Threads & Subforums
-- `GET /api/threads`: Daftar semua thread.
-- `POST /api/threads`: Membuat thread baru.
-- `GET /api/threads/:id`: Detail thread.
-- `GET /api/subforums`: Daftar subforum.
-- `GET /api/subforums/:slug`: Detail subforum berdasarkan slug.
-
-### Komentar & Voting
-- `GET /api/comments/thread/:threadId`: Mengambil komentar dalam thread.
-- `POST /api/comments`: Membuat komentar/balasan baru.
-- `POST /api/votes`: Melakukan vote (upvote/downvote).
-
-## Lisensi
-
-Proyek ini dibuat untuk tujuan pendidikan dan pengembangan internal.
