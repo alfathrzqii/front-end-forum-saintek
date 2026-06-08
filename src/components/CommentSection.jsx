@@ -14,6 +14,7 @@ export default function CommentSection({ threadId, isThreadAnonymous = false }) 
   const [error, setError] = useState(null);
   const [newComment, setNewComment] = useState('');
   const [submitting, setSubmitting] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
 
   useEffect(() => {
     const fetchComments = async () => {
@@ -57,6 +58,7 @@ export default function CommentSection({ threadId, isThreadAnonymous = false }) 
         content: newComment.trim(),
       });
       setNewComment('');
+      setIsExpanded(false);
       refreshComments(); // Refresh comments after posting
     } catch (err) {
       console.error('Failed to post comment:', err);
@@ -82,7 +84,9 @@ export default function CommentSection({ threadId, isThreadAnonymous = false }) 
             <label htmlFor="comment" className="sr-only">Your comment</label>
             <textarea
               id="comment"
-              rows="3"
+              rows={isExpanded || newComment.trim() ? 3 : 1}
+              onFocus={() => setIsExpanded(true)}
+              onBlur={() => setIsExpanded(false)}
               className="w-full px-4 py-3 border-2 border-gray-100 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-gray-50 resize-none transition-all duration-200 outline-none"
               placeholder={`Write a comment as u/${currentUser?.username || 'user'}...`}
               value={newComment}
@@ -90,15 +94,17 @@ export default function CommentSection({ threadId, isThreadAnonymous = false }) 
               required
             ></textarea>
           </div>
-          <div className="flex justify-end">
-            <button
-              type="submit"
-              disabled={submitting || !newComment.trim()}
-              className={`px-6 py-2 bg-blue-600 text-white font-bold rounded-full hover:bg-blue-700 transition duration-200 ${submitting || !newComment.trim() ? 'opacity-50 cursor-not-allowed' : ''}`}
-            >
-              {submitting ? 'Posting...' : 'Post Comment'}
-            </button>
-          </div>
+          {newComment.trim() && (
+            <div className="flex justify-end animate-fadeIn">
+              <button
+                type="submit"
+                disabled={submitting || !newComment.trim()}
+                className={`px-6 py-2 bg-blue-600 text-white font-bold rounded-full hover:bg-blue-700 transition duration-200 ${submitting || !newComment.trim() ? 'opacity-50 cursor-not-allowed' : ''}`}
+              >
+                {submitting ? 'Posting...' : 'Post Comment'}
+              </button>
+            </div>
+          )}
         </form>
       ) : (
         <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-8 text-center">
