@@ -23,7 +23,7 @@ export default function Navbar() {
         <div className="flex justify-between h-20 items-center">
           <div className="flex items-center">
             <Link to="/" className="text-3xl font-serif font-bold text-plm-charcoal lowercase tracking-tight">
-              saintek<span className="text-plm-olive">.</span>
+              forum saintek<span className="text-plm-olive">.</span>
             </Link>
           </div>
           <div className="hidden md:flex items-center space-x-8 uppercase text-xs font-bold tracking-widest text-plm-charcoal/60">
