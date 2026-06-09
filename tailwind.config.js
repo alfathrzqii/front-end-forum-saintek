@@ -6,6 +6,21 @@ export default {
   ],
   theme: {
     extend: {
+      colors: {
+        plm: {
+          green: '#BDC38C',
+          pink: '#F9C8D9',
+          blue: '#B8D8D8',
+          cream: '#F9F6F1',
+          charcoal: '#212121',
+          olive: '#A4AC86',
+          'light-green': '#D5E5B5',
+        }
+      },
+      fontFamily: {
+        serif: ['"DM Serif Display"', 'serif'],
+        sans: ['Inter', 'sans-serif'],
+      },
       keyframes: {
         fadeIn: {
           '0%': { opacity: '0', transform: 'translateY(-10px)' },

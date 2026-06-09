@@ -86,8 +86,11 @@ export default function CreateThread() {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
-      <div className="bg-white rounded-lg shadow-md p-6">
-        <h1 className="text-2xl font-bold mb-6 text-gray-900">Create a New Thread</h1>
+      <div className="bg-white border-2 border-plm-charcoal rounded-[40px] shadow-[12px_12px_0px_0px_rgba(33,33,33,1)] p-10 relative overflow-hidden">
+        {/* Decorative element */}
+        <div className="absolute top-4 right-8 text-3xl opacity-20 select-none">✍️</div>
+
+        <h1 className="text-4xl font-serif font-bold mb-10 text-plm-charcoal lowercase italic tracking-tight">create a new thread<span className="text-plm-pink">.</span></h1>
 
         {error && (
           <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6" role="alert">
@@ -95,16 +98,16 @@ export default function CreateThread() {
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-8">
           <div>
-            <label htmlFor="subforum" className="block text-sm font-medium text-gray-700 mb-1">
-              Choose a subforum
+            <label htmlFor="subforum" className="block text-[10px] uppercase tracking-widest font-bold text-plm-charcoal mb-3 ml-1">
+              Choose a club
             </label>
             <select
               id="subforum"
               value={subforumSlug}
               onChange={(e) => setSubforumSlug(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-5 py-4 border-2 border-plm-charcoal rounded-2xl focus:outline-none focus:bg-plm-cream appearance-none bg-white transition-colors font-medium text-sm"
               required
             >
               <option value="" disabled>Select a subforum</option>
@@ -117,7 +120,7 @@ export default function CreateThread() {
           </div>
 
           <div>
-            <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="title" className="block text-[10px] uppercase tracking-widest font-bold text-plm-charcoal mb-3 ml-1">
               Title
             </label>
             <input
@@ -126,14 +129,14 @@ export default function CreateThread() {
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="What's on your mind?"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-5 py-4 border-2 border-plm-charcoal rounded-2xl focus:outline-none focus:bg-plm-cream transition-colors font-medium text-sm"
               required
               maxLength={255}
             />
           </div>
 
           <div>
-            <label htmlFor="content" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="content" className="block text-[10px] uppercase tracking-widest font-bold text-plm-charcoal mb-3 ml-1">
               Content
             </label>
             <textarea
@@ -142,25 +145,25 @@ export default function CreateThread() {
               value={content}
               onChange={(e) => setContent(e.target.value)}
               placeholder="Share your thoughts..."
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-5 py-4 border-2 border-plm-charcoal rounded-2xl focus:outline-none focus:bg-plm-cream transition-colors font-medium text-sm"
               required
             ></textarea>
           </div>
 
-          <div className="flex justify-end space-x-3">
+          <div className="flex justify-end space-x-4">
             <button
               type="button"
               onClick={() => navigate('/')}
-              className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 transition duration-200"
+              className="px-8 py-3 text-[10px] font-bold uppercase tracking-widest text-plm-charcoal/60 hover:text-plm-charcoal transition"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={isLoading}
-              className={`px-6 py-2 bg-blue-600 text-white font-bold rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200 ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
+              className={`bg-plm-pink border-2 border-plm-charcoal text-plm-charcoal px-10 py-3 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-plm-charcoal hover:text-white transition-all duration-300 shadow-[6px_6px_0px_0px_rgba(33,33,33,1)] active:shadow-none active:translate-x-1 active:translate-y-1 ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
             >
-              {isLoading ? 'Posting...' : 'Post Thread'}
+              {isLoading ? 'Hold on...' : 'Post Thread'}
             </button>
           </div>
         </form>

@@ -43,9 +43,12 @@ export default function Register() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4 py-12">
-      <div className="max-w-md w-full bg-white rounded-lg shadow-md p-8">
-        <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">Register</h2>
+    <div className="min-h-screen flex items-center justify-center bg-plm-cream px-4 py-12 bg-grid">
+      <div className="max-w-md w-full bg-white border-2 border-plm-charcoal rounded-[40px] shadow-[12px_12px_0px_0px_rgba(33,33,33,1)] p-10 relative overflow-hidden">
+        {/* Decorative elements */}
+        <div className="absolute top-4 right-8 text-2xl opacity-20 select-none">✨</div>
+
+        <h2 className="text-4xl font-serif font-bold text-center text-plm-charcoal mb-10 lowercase tracking-tight">join the club<span className="text-plm-olive">.</span></h2>
 
         {error && (
           <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4" role="alert">
@@ -53,15 +56,15 @@ export default function Register() {
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="fullName">
+            <label className="block text-plm-charcoal text-[10px] uppercase tracking-widest font-bold mb-2 ml-1" htmlFor="fullName">
               Full Name
             </label>
             <input
               id="fullName"
               type="text"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-3 border-2 border-plm-charcoal rounded-2xl focus:outline-none focus:bg-plm-cream transition-colors font-medium text-sm"
               placeholder="Your full name"
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
@@ -69,29 +72,45 @@ export default function Register() {
             />
           </div>
 
-          <div>
-            <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="username">
-              Username
-            </label>
-            <input
-              id="username"
-              type="text"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Your username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-            />
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="block text-plm-charcoal text-[10px] uppercase tracking-widest font-bold mb-2 ml-1" htmlFor="username">
+                Username
+              </label>
+              <input
+                id="username"
+                type="text"
+                className="w-full px-4 py-3 border-2 border-plm-charcoal rounded-2xl focus:outline-none focus:bg-plm-cream transition-colors font-medium text-sm"
+                placeholder="Username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-plm-charcoal text-[10px] uppercase tracking-widest font-bold mb-2 ml-1" htmlFor="prodi">
+                Prodi
+              </label>
+              <input
+                id="prodi"
+                type="text"
+                className="w-full px-4 py-3 border-2 border-plm-charcoal rounded-2xl focus:outline-none focus:bg-plm-cream transition-colors font-medium text-sm"
+                placeholder="Sains Data"
+                value={prodi}
+                onChange={(e) => setProdi(e.target.value)}
+                required
+              />
+            </div>
           </div>
 
           <div>
-            <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="email">
+            <label className="block text-plm-charcoal text-[10px] uppercase tracking-widest font-bold mb-2 ml-1" htmlFor="email">
               Email (University Domain)
             </label>
             <input
               id="email"
               type="email"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-3 border-2 border-plm-charcoal rounded-2xl focus:outline-none focus:bg-plm-cream transition-colors font-medium text-sm"
               placeholder="227611001@mhs.uinsaid.ac.id"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -100,28 +119,13 @@ export default function Register() {
           </div>
 
           <div>
-            <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="prodi">
-              Program Studi
-            </label>
-            <input
-              id="prodi"
-              type="text"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Sains Data"
-              value={prodi}
-              onChange={(e) => setProdi(e.target.value)}
-              required
-            />
-          </div>
-
-          <div>
-            <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="password">
+            <label className="block text-plm-charcoal text-[10px] uppercase tracking-widest font-bold mb-2 ml-1" htmlFor="password">
               Password
             </label>
             <input
               id="password"
               type="password"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-3 border-2 border-plm-charcoal rounded-2xl focus:outline-none focus:bg-plm-cream transition-colors font-medium text-sm"
               placeholder="••••••••"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -132,15 +136,15 @@ export default function Register() {
           <button
             type="submit"
             disabled={isLoading}
-            className={`w-full bg-blue-600 text-white font-bold py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200 ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
+            className={`w-full bg-plm-light-green border-2 border-plm-charcoal text-plm-charcoal font-bold py-4 px-4 rounded-full uppercase tracking-[0.2em] text-xs hover:bg-plm-charcoal hover:text-white transition-all duration-300 shadow-[6px_6px_0px_0px_rgba(33,33,33,1)] active:shadow-none active:translate-x-1 active:translate-y-1 ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
           >
-            {isLoading ? 'Registering...' : 'Register'}
+            {isLoading ? 'Hold on...' : 'Register'}
           </button>
         </form>
 
-        <p className="mt-6 text-center text-gray-600 text-sm">
-          Already have an account?{' '}
-          <Link to="/login" className="text-blue-600 hover:underline font-medium">
+        <p className="mt-8 text-center text-plm-charcoal/60 text-[10px] uppercase tracking-widest font-bold">
+          Already a member?{' '}
+          <Link to="/login" className="text-plm-charcoal hover:text-plm-olive underline underline-offset-4 decoration-2 decoration-plm-pink">
             Login here
           </Link>
         </p>

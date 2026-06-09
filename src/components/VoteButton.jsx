@@ -73,23 +73,23 @@ export default function VoteButton({ threadId, commentId, initialUpvotes = 0, in
   const totalScore = upvotes - downvotes;
 
   return (
-    <div className={`flex items-center space-x-1 bg-gray-100 p-1 px-2 rounded-md ${className}`}>
+    <div className={`flex items-center space-x-1 border-2 border-plm-charcoal bg-white p-1 px-2 rounded-full shadow-[2px_2px_0px_0px_rgba(33,33,33,1)] ${className}`}>
       <button
         onClick={(e) => {
           e.preventDefault();
           e.stopPropagation();
           handleVote('upvote');
         }}
-        className={`hover:bg-gray-200 rounded p-1 transition-colors ${userVote === 1 ? 'text-orange-600' : 'text-gray-500'}`}
+        className={`hover:bg-plm-pink/50 rounded-full p-0.5 transition-colors ${userVote === 1 ? 'text-plm-olive' : 'text-plm-charcoal'}`}
         disabled={isLoading}
         title="Upvote"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill={userVote === 1 ? 'currentColor' : 'none'} viewBox="0 0 24 24" stroke="currentColor">
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill={userVote === 1 ? 'currentColor' : 'none'} viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
         </svg>
       </button>
 
-      <span className={`font-bold text-sm min-w-[1.5rem] text-center ${userVote === 1 ? 'text-orange-600' : userVote === -1 ? 'text-blue-600' : 'text-gray-700'}`}>
+      <span className={`font-bold text-xs min-w-[1rem] text-center ${userVote === 1 ? 'text-plm-olive' : userVote === -1 ? 'text-red-500' : 'text-plm-charcoal'}`}>
         {totalScore}
       </span>
 
@@ -99,11 +99,11 @@ export default function VoteButton({ threadId, commentId, initialUpvotes = 0, in
           e.stopPropagation();
           handleVote('downvote');
         }}
-        className={`hover:bg-gray-200 rounded p-1 transition-colors ${userVote === -1 ? 'text-blue-600' : 'text-gray-500'}`}
+        className={`hover:bg-plm-blue/50 rounded-full p-0.5 transition-colors ${userVote === -1 ? 'text-red-500' : 'text-plm-charcoal'}`}
         disabled={isLoading}
         title="Downvote"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill={userVote === -1 ? 'currentColor' : 'none'} viewBox="0 0 24 24" stroke="currentColor">
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill={userVote === -1 ? 'currentColor' : 'none'} viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
         </svg>
       </button>

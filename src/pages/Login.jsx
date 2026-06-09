@@ -53,9 +53,12 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
-      <div className="max-w-md w-full bg-white rounded-lg shadow-md p-8">
-        <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">Login</h2>
+    <div className="min-h-screen flex items-center justify-center bg-plm-cream px-4 bg-grid">
+      <div className="max-w-md w-full bg-white border-2 border-plm-charcoal rounded-[40px] shadow-[12px_12px_0px_0px_rgba(33,33,33,1)] p-10 relative overflow-hidden">
+        {/* Decorative elements */}
+        <div className="absolute top-4 right-8 text-2xl opacity-20 select-none">🔑</div>
+
+        <h2 className="text-4xl font-serif font-bold text-center text-plm-charcoal mb-10 lowercase tracking-tight">welcome back<span className="text-plm-olive">.</span></h2>
 
         {error && (
           <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4" role="alert">
@@ -63,16 +66,16 @@ export default function Login() {
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-8">
           <div>
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="identifier">
+            <label className="block text-plm-charcoal text-[10px] uppercase tracking-widest font-bold mb-3 ml-1" htmlFor="identifier">
               Email or Username
             </label>
             <input
               id="identifier"
               type="text"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Email or username"
+              className="w-full px-5 py-4 border-2 border-plm-charcoal rounded-2xl focus:outline-none focus:bg-plm-cream transition-colors font-medium text-sm"
+              placeholder="Your email or username"
               value={identifier}
               onChange={(e) => setIdentifier(e.target.value)}
               required
@@ -80,13 +83,13 @@ export default function Login() {
           </div>
 
           <div>
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
+            <label className="block text-plm-charcoal text-[10px] uppercase tracking-widest font-bold mb-3 ml-1" htmlFor="password">
               Password
             </label>
             <input
               id="password"
               type="password"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-5 py-4 border-2 border-plm-charcoal rounded-2xl focus:outline-none focus:bg-plm-cream transition-colors font-medium text-sm"
               placeholder="••••••••"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -97,16 +100,16 @@ export default function Login() {
           <button
             type="submit"
             disabled={isLoading}
-            className={`w-full bg-blue-600 text-white font-bold py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200 ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
+            className={`w-full bg-plm-pink border-2 border-plm-charcoal text-plm-charcoal font-bold py-4 px-4 rounded-full uppercase tracking-[0.2em] text-xs hover:bg-plm-charcoal hover:text-white transition-all duration-300 shadow-[6px_6px_0px_0px_rgba(33,33,33,1)] active:shadow-none active:translate-x-1 active:translate-y-1 ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
           >
-            {isLoading ? 'Logging in...' : 'Login'}
+            {isLoading ? 'Wait a sec...' : 'Login'}
           </button>
         </form>
 
-        <p className="mt-6 text-center text-gray-600 text-sm">
-          Don't have an account?{' '}
-          <Link to="/register" className="text-blue-600 hover:underline font-medium">
-            Register here
+        <p className="mt-10 text-center text-plm-charcoal/60 text-[10px] uppercase tracking-widest font-bold">
+          New here?{' '}
+          <Link to="/register" className="text-plm-charcoal hover:text-plm-olive underline underline-offset-4 decoration-2 decoration-plm-pink">
+            Join The Club
           </Link>
         </p>
       </div>

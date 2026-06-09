@@ -71,17 +71,15 @@ export default function SubforumDetail() {
       {loading ? (
         <SubforumBannerSkeleton />
       ) : (
-        <div className="bg-white border border-gray-200 rounded-md shadow-sm mb-8 overflow-hidden">
-          <div className="h-24 bg-blue-600"></div>
-          <div className="px-6 py-4 flex flex-col md:flex-row md:items-end -mt-12 md:-mt-8 gap-4">
-            <div className="bg-white p-2 rounded-full border-4 border-white shadow-md inline-block">
-              <div className="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center text-blue-600 text-2xl font-bold">
-                s/
-              </div>
+        <div className="bg-plm-blue border-2 border-plm-charcoal rounded-[40px] shadow-[8px_8px_0px_0px_rgba(33,33,33,1)] mb-12 overflow-hidden bg-grid relative">
+          <div className="absolute top-4 right-8 text-4xl select-none opacity-20 transform rotate-12">🏷️</div>
+          <div className="px-8 py-10 flex flex-col md:flex-row md:items-center gap-6">
+            <div className="bg-white border-2 border-plm-charcoal w-20 h-20 rounded-full flex items-center justify-center text-plm-charcoal text-3xl font-serif font-bold shadow-[4px_4px_0px_0px_rgba(33,33,33,1)]">
+              {subforum.name.charAt(0).toLowerCase()}
             </div>
-            <div className="mb-2">
-              <h1 className="text-2xl font-extrabold text-gray-900">s/{subforum.name}</h1>
-              <p className="text-gray-600">{subforum.description}</p>
+            <div>
+              <h1 className="text-4xl font-serif font-bold text-plm-charcoal lowercase tracking-tight">s/{subforum.name}</h1>
+              <p className="text-plm-charcoal/70 font-medium">{subforum.description}</p>
             </div>
           </div>
         </div>
@@ -90,18 +88,18 @@ export default function SubforumDetail() {
       <div className="flex flex-col lg:flex-row gap-8">
         {/* Main Content: Thread List */}
         <div className="w-full lg:w-2/3">
-          <div className="flex justify-between items-center mb-6">
-            <h2 className="text-xl font-bold text-gray-900">
+          <div className="flex justify-between items-center mb-10">
+            <h2 className="text-3xl font-serif font-bold text-plm-charcoal italic underline decoration-plm-pink decoration-8 underline-offset-4">
               {loading ? (
-                <div className="h-7 w-48 bg-gray-200 rounded animate-pulse"></div>
+                "Loading..."
               ) : (
-                `Threads in s/${subforum.name}`
+                `threads in ${subforum.name}`
               )}
             </h2>
             {!loading && token && (
               <Link
                 to={`/create-thread?subforum=${subforum.slug}`}
-                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-bold transition duration-200 flex items-center"
+                className="bg-plm-green border-2 border-plm-charcoal text-plm-charcoal px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-plm-charcoal hover:text-white transition-all duration-300 shadow-[4px_4px_0px_0px_rgba(33,33,33,1)] active:shadow-none active:translate-x-1 active:translate-y-1 flex items-center"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
                   <path fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clipRule="evenodd" />
@@ -148,9 +146,10 @@ export default function SubforumDetail() {
             ) : (
               <>
                 <SubforumSidebar subforums={subforums} />
-                <div className="mt-4 p-4 bg-white border border-gray-200 rounded-md shadow-sm">
-                  <h3 className="font-bold text-sm mb-2">About s/{subforum.name}</h3>
-                  <p className="text-xs text-gray-600 leading-relaxed">
+                <div className="mt-6 p-6 bg-plm-light-green border-2 border-plm-charcoal rounded-[32px] shadow-[6px_6px_0px_0px_rgba(33,33,33,1)] relative overflow-hidden">
+                  <div className="absolute -top-2 -right-2 text-2xl opacity-20 transform rotate-12">🏷️</div>
+                  <h3 className="font-serif font-bold text-lg mb-3 lowercase italic underline decoration-white decoration-4 underline-offset-2">About s/{subforum.name}</h3>
+                  <p className="text-[10px] uppercase tracking-widest font-bold text-plm-charcoal/70 leading-loose">
                     {subforum.description || `Welcome to the ${subforum.name} subforum!`}
                   </p>
                 </div>

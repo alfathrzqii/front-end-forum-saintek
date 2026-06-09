@@ -63,9 +63,12 @@ export default function ThreadCard({ thread, onDelete }) {
     navigate(`/threads/${id}`);
   };
 
+  const cardColors = ['bg-plm-pink', 'bg-plm-blue', 'bg-plm-light-green', 'bg-white'];
+  const cardColor = cardColors[id % cardColors.length];
+
   return (
     <div
-      className="bg-white border border-gray-200 rounded-md shadow-sm hover:border-gray-400 transition-colors duration-200 mb-4 overflow-hidden cursor-pointer"
+      className={`${cardColor} border-2 border-plm-charcoal rounded-[32px] shadow-[8px_8px_0px_0px_rgba(33,33,33,1)] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all duration-300 mb-8 overflow-hidden cursor-pointer`}
       onClick={handleCardClick}
     >
       {deleteError && (
@@ -78,37 +81,28 @@ export default function ThreadCard({ thread, onDelete }) {
           </button>
         </div>
       )}
-      <div className="p-4">
-        <div className="flex items-center text-xs text-gray-500 mb-2 space-x-2">
+      <div className="p-8">
+        <div className="flex items-center text-[10px] uppercase tracking-widest text-plm-charcoal/60 mb-4 space-x-2 font-bold">
           {subforum && (
-            <Link to={`/subforums/${subforum.slug}`} className="font-bold text-gray-900 hover:underline">
-              s/{subforum.name}
+            <Link to={`/subforums/${subforum.slug}`} className="bg-plm-charcoal text-white px-2 py-0.5 rounded-full hover:opacity-80 transition-opacity">
+              {subforum.name}
             </Link>
           )}
           <span>•</span>
-          <span>Posted by u/{subforum?.slug === 'saintekfess' ? 'anonymous' : (author?.username || 'anonymous')}</span>
+          <span>Posted by {subforum?.slug === 'saintekfess' ? 'anonymous' : (author?.username || 'anonymous')}</span>
           <span>•</span>
           <span>{new Date(createdAt).toLocaleDateString()}</span>
         </div>
 
         <Link to={`/threads/${id}`} className="block">
-          <h2 className="text-lg font-semibold text-gray-900 mb-2 hover:underline">{title}</h2>
+          <h2 className="text-2xl md:text-3xl font-serif font-bold text-plm-charcoal mb-4 hover:text-plm-olive transition-colors leading-tight">{title}</h2>
         </Link>
 
-        <p className="text-gray-700 text-sm mb-4">
-          {content?.length > 150 ? (
-            <>
-              {content.substring(0, 150)}...
-              <Link to={`/threads/${id}`} className="text-blue-600 hover:underline ml-1 font-medium">
-                view more
-              </Link>
-            </>
-          ) : (
-            content
-          )}
+        <p className="text-plm-charcoal/80 text-sm md:text-base mb-6 leading-relaxed line-clamp-3">
+          {content}
         </p>
 
-        <div className="flex items-center space-x-4 text-gray-500 text-xs font-bold">
+        <div className="flex flex-wrap items-center gap-4 text-plm-charcoal text-[10px] font-bold uppercase tracking-widest">
           <VoteButton
             threadId={id}
             initialUpvotes={upvotes}
@@ -117,8 +111,8 @@ export default function ThreadCard({ thread, onDelete }) {
             className="rounded-sm"
           />
 
-          <Link to={`/threads/${id}`} className="flex items-center space-x-1 hover:bg-gray-100 p-1 px-2 rounded-sm transition-colors">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <Link to={`/threads/${id}`} className="flex items-center space-x-1 border-2 border-plm-charcoal bg-white px-3 py-1 rounded-full hover:bg-plm-charcoal hover:text-white transition-all shadow-[2px_2px_0px_0px_rgba(33,33,33,1)] active:shadow-none active:translate-x-0.5 active:translate-y-0.5">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
             </svg>
             <span>{_count?.comments || 0} Comments</span>
@@ -126,9 +120,9 @@ export default function ThreadCard({ thread, onDelete }) {
 
           <button
             onClick={handleShare}
-            className="flex items-center space-x-1 hover:bg-gray-100 p-1 px-2 rounded-sm transition-colors relative"
+            className="flex items-center space-x-1 border-2 border-plm-charcoal bg-white px-3 py-1 rounded-full hover:bg-plm-charcoal hover:text-white transition-all shadow-[2px_2px_0px_0px_rgba(33,33,33,1)] active:shadow-none active:translate-x-0.5 active:translate-y-0.5 relative"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
             </svg>
             <span>{showCopied ? 'Copied!' : 'Share'}</span>
@@ -138,9 +132,9 @@ export default function ThreadCard({ thread, onDelete }) {
             <button
               onClick={handleDelete}
               disabled={isDeleting}
-              className={`flex items-center space-x-1 text-red-500 hover:bg-red-50 p-1 px-2 rounded-sm transition-colors ${isDeleting ? 'opacity-50 cursor-not-allowed' : ''}`}
+              className={`flex items-center space-x-1 border-2 border-red-500 bg-white text-red-500 px-3 py-1 rounded-full hover:bg-red-500 hover:text-white transition-all shadow-[2px_2px_0px_0px_rgba(239,68,68,1)] active:shadow-none active:translate-x-0.5 active:translate-y-0.5 ${isDeleting ? 'opacity-50 cursor-not-allowed' : ''}`}
             >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
               </svg>
               <span>Delete</span>

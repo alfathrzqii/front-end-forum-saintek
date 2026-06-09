@@ -94,14 +94,14 @@ export default function ThreadDetail() {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
-      <Link to="/" className="inline-flex items-center text-blue-600 hover:text-blue-800 mb-6 transition-colors duration-200">
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <Link to="/" className="inline-flex items-center text-plm-charcoal uppercase text-[10px] font-bold tracking-[0.2em] mb-8 hover:text-plm-olive transition-colors group">
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2 transform group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
         </svg>
         Back to Home
       </Link>
 
-      <div className="bg-white rounded-lg shadow-md overflow-hidden">
+      <div className="bg-white border-2 border-plm-charcoal rounded-[40px] shadow-[12px_12px_0px_0px_rgba(33,33,33,1)] overflow-hidden mb-12">
         {deleteError && (
           <div className="bg-red-50 border-b border-red-100 p-3 text-sm text-red-600 flex justify-between items-center">
             <span>{deleteError}</span>
@@ -112,29 +112,32 @@ export default function ThreadDetail() {
             </button>
           </div>
         )}
-        <div className="p-6">
+        <div className="p-10 relative">
+          {/* Decorative Sticker */}
+          <div className="absolute top-10 right-10 text-4xl select-none opacity-20">🔬</div>
+
           {/* Header Info */}
-          <div className="flex items-center text-xs text-gray-500 mb-3 space-x-2">
+          <div className="flex items-center text-[10px] uppercase tracking-widest text-plm-charcoal/60 mb-6 space-x-2 font-bold">
             {subforum && (
-              <Link to={`/subforums/${subforum.slug}`} className="font-bold text-gray-900 hover:underline">
-                s/{subforum.name}
+              <Link to={`/subforums/${subforum.slug}`} className="bg-plm-charcoal text-white px-3 py-1 rounded-full hover:opacity-80 transition-opacity">
+                {subforum.name}
               </Link>
             )}
             <span>•</span>
-            <span>Posted by u/{subforum?.slug === 'saintekfess' ? 'anonymous' : (author?.username || 'anonymous')}</span>
+            <span>Posted by {subforum?.slug === 'saintekfess' ? 'anonymous' : (author?.username || 'anonymous')}</span>
             <span>•</span>
             <span>{new Date(createdAt).toLocaleString()}</span>
           </div>
 
           {/* Thread Content */}
-          <h1 className="text-3xl font-extrabold text-gray-900 mb-6">{title}</h1>
+          <h1 className="text-4xl md:text-5xl font-serif font-bold text-plm-charcoal mb-8 leading-tight">{title}</h1>
 
-          <div className="text-lg leading-relaxed text-gray-800 whitespace-pre-wrap mb-8">
+          <div className="text-lg md:text-xl leading-relaxed text-plm-charcoal/80 whitespace-pre-wrap mb-10 font-sans">
             {content}
           </div>
 
           {/* Action Bar */}
-          <div className="flex items-center space-x-4 text-gray-500 text-sm border-t border-gray-100 pt-4">
+          <div className="flex flex-wrap items-center gap-4 text-plm-charcoal text-[10px] font-bold uppercase tracking-widest border-t border-plm-charcoal/10 pt-8">
             <VoteButton
               threadId={threadId}
               initialUpvotes={upvotes}
@@ -145,34 +148,34 @@ export default function ThreadDetail() {
 
             <button
               onClick={scrollToComments}
-              className="flex items-center space-x-2 hover:bg-gray-100 p-1 px-2 rounded transition-colors"
+              className="flex items-center space-x-2 border-2 border-plm-charcoal bg-white px-4 py-2 rounded-full hover:bg-plm-charcoal hover:text-white transition-all shadow-[4px_4px_0px_0px_rgba(33,33,33,1)] active:shadow-none active:translate-x-1 active:translate-y-1"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
               </svg>
-              <span className="font-bold">{_count?.comments || 0} Comments</span>
+              <span>{_count?.comments || 0} Comments</span>
             </button>
 
             <button
               onClick={handleShare}
-              className="flex items-center space-x-2 hover:bg-gray-100 p-1 px-2 rounded transition-colors"
+              className="flex items-center space-x-2 border-2 border-plm-charcoal bg-white px-4 py-2 rounded-full hover:bg-plm-charcoal hover:text-white transition-all shadow-[4px_4px_0px_0px_rgba(33,33,33,1)] active:shadow-none active:translate-x-1 active:translate-y-1"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
               </svg>
-              <span className="font-bold">{showCopied ? 'Copied!' : 'Share'}</span>
+              <span>{showCopied ? 'Copied!' : 'Share'}</span>
             </button>
 
             {canDelete && (
               <button
                 onClick={handleDelete}
                 disabled={isDeleting}
-                className={`flex items-center space-x-1 text-red-500 hover:bg-red-50 p-1 px-2 rounded transition-colors ${isDeleting ? 'opacity-50 cursor-not-allowed' : ''}`}
+                className={`flex items-center space-x-2 border-2 border-red-500 bg-white text-red-500 px-4 py-2 rounded-full hover:bg-red-500 hover:text-white transition-all shadow-[4px_4px_0px_0px_rgba(239,68,68,1)] active:shadow-none active:translate-x-1 active:translate-y-1 ${isDeleting ? 'opacity-50 cursor-not-allowed' : ''}`}
               >
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                 </svg>
-                <span className="font-bold">{isDeleting ? 'Deleting...' : 'Delete'}</span>
+                <span>{isDeleting ? 'Deleting...' : 'Delete'}</span>
               </button>
             )}
           </div>

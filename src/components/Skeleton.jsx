@@ -1,34 +1,30 @@
 export const ThreadCardSkeleton = () => (
-  <div className="bg-white border border-gray-200 rounded-md shadow-sm mb-4 overflow-hidden animate-pulse">
-    <div className="p-4">
-      <div className="flex items-center mb-2 space-x-2">
-        <div className="h-3 w-20 bg-gray-200 rounded"></div>
-        <div className="h-3 w-1 bg-gray-200 rounded-full"></div>
-        <div className="h-3 w-24 bg-gray-200 rounded"></div>
-        <div className="h-3 w-1 bg-gray-200 rounded-full"></div>
-        <div className="h-3 w-16 bg-gray-200 rounded"></div>
+  <div className="bg-white border-2 border-plm-charcoal rounded-[32px] shadow-[8px_8px_0px_0px_rgba(33,33,33,1)] mb-8 overflow-hidden animate-pulse">
+    <div className="p-8">
+      <div className="flex items-center mb-4 space-x-2">
+        <div className="h-4 w-16 bg-plm-charcoal/10 rounded-full"></div>
+        <div className="h-1 w-1 bg-plm-charcoal/10 rounded-full"></div>
+        <div className="h-3 w-24 bg-plm-charcoal/10 rounded"></div>
       </div>
-      <div className="h-5 w-3/4 bg-gray-200 rounded mb-2"></div>
-      <div className="space-y-2 mb-4">
-        <div className="h-3 w-full bg-gray-100 rounded"></div>
-        <div className="h-3 w-5/6 bg-gray-100 rounded"></div>
+      <div className="h-8 w-3/4 bg-plm-charcoal/10 rounded mb-4"></div>
+      <div className="space-y-2 mb-6">
+        <div className="h-4 w-full bg-plm-charcoal/5 rounded"></div>
+        <div className="h-4 w-5/6 bg-plm-charcoal/5 rounded"></div>
       </div>
-      <div className="flex items-center space-x-4">
-        <div className="h-6 w-24 bg-gray-200 rounded"></div>
-        <div className="h-6 w-24 bg-gray-200 rounded"></div>
+      <div className="flex items-center gap-4">
+        <div className="h-8 w-20 bg-plm-charcoal/10 rounded-full"></div>
+        <div className="h-8 w-24 bg-plm-charcoal/10 rounded-full"></div>
       </div>
     </div>
   </div>
 );
 
 export const SubforumSidebarSkeleton = () => (
-  <div className="bg-white border border-gray-200 rounded-md shadow-sm overflow-hidden animate-pulse">
-    <div className="bg-gray-200 h-14 w-full"></div>
-    <div className="p-2">
-      {[1, 2, 3, 4, 5].map((i) => (
-        <div key={i} className="flex items-center p-3">
-          <div className="h-4 w-32 bg-gray-100 rounded"></div>
-        </div>
+  <div className="bg-white border-2 border-plm-charcoal rounded-[32px] shadow-[6px_6px_0px_0px_rgba(33,33,33,1)] overflow-hidden animate-pulse">
+    <div className="bg-plm-pink/20 h-16 w-full"></div>
+    <div className="p-4 space-y-2">
+      {[1, 2, 3].map((i) => (
+        <div key={i} className="h-10 w-full bg-plm-charcoal/5 rounded-2xl"></div>
       ))}
     </div>
   </div>
@@ -36,26 +32,23 @@ export const SubforumSidebarSkeleton = () => (
 
 export const ThreadDetailSkeleton = () => (
   <div className="max-w-4xl mx-auto px-4 py-8 animate-pulse">
-    <div className="h-5 w-32 bg-gray-200 rounded mb-6"></div>
-    <div className="bg-white rounded-lg shadow-md overflow-hidden">
-      <div className="p-6">
-        <div className="flex items-center mb-3 space-x-2">
-          <div className="h-3 w-20 bg-gray-200 rounded"></div>
-          <div className="h-3 w-1 bg-gray-200 rounded-full"></div>
-          <div className="h-3 w-24 bg-gray-200 rounded"></div>
-          <div className="h-3 w-1 bg-gray-200 rounded-full"></div>
-          <div className="h-3 w-16 bg-gray-200 rounded"></div>
+    <div className="h-4 w-24 bg-plm-charcoal/10 rounded mb-8"></div>
+    <div className="bg-white border-2 border-plm-charcoal rounded-[40px] shadow-[12px_12px_0px_0px_rgba(33,33,33,1)] overflow-hidden mb-12">
+      <div className="p-10">
+        <div className="flex items-center mb-6 space-x-2">
+          <div className="h-5 w-20 bg-plm-charcoal/10 rounded-full"></div>
+          <div className="h-1 w-1 bg-plm-charcoal/10 rounded-full"></div>
+          <div className="h-3 w-32 bg-plm-charcoal/10 rounded"></div>
         </div>
-        <div className="h-10 w-3/4 bg-gray-200 rounded mb-6"></div>
-        <div className="space-y-3 mb-8">
-          <div className="h-4 w-full bg-gray-100 rounded"></div>
-          <div className="h-4 w-full bg-gray-100 rounded"></div>
-          <div className="h-4 w-full bg-gray-100 rounded"></div>
-          <div className="h-4 w-2/3 bg-gray-100 rounded"></div>
+        <div className="h-12 w-3/4 bg-plm-charcoal/10 rounded mb-8"></div>
+        <div className="space-y-4 mb-10">
+          <div className="h-4 w-full bg-plm-charcoal/5 rounded"></div>
+          <div className="h-4 w-full bg-plm-charcoal/5 rounded"></div>
+          <div className="h-4 w-3/4 bg-plm-charcoal/5 rounded"></div>
         </div>
-        <div className="flex items-center space-x-4 border-t border-gray-100 pt-4">
-          <div className="h-8 w-24 bg-gray-200 rounded-full"></div>
-          <div className="h-8 w-24 bg-gray-200 rounded-full"></div>
+        <div className="flex items-center gap-4 border-t border-plm-charcoal/10 pt-8">
+          <div className="h-10 w-24 bg-plm-charcoal/10 rounded-full"></div>
+          <div className="h-10 w-32 bg-plm-charcoal/10 rounded-full"></div>
         </div>
       </div>
     </div>
@@ -63,30 +56,27 @@ export const ThreadDetailSkeleton = () => (
 );
 
 export const CommentSkeleton = () => (
-  <div className="mt-4 animate-pulse">
-    <div className="flex items-center mb-2 space-x-2">
-      <div className="h-3 w-24 bg-gray-200 rounded"></div>
-      <div className="h-3 w-1 bg-gray-200 rounded-full"></div>
-      <div className="h-3 w-20 bg-gray-200 rounded"></div>
+  <div className="mt-6 animate-pulse">
+    <div className="flex items-center mb-3 space-x-2">
+      <div className="h-3 w-20 bg-plm-charcoal/10 rounded"></div>
+      <div className="h-1 w-1 bg-plm-charcoal/10 rounded-full"></div>
+      <div className="h-3 w-16 bg-plm-charcoal/10 rounded"></div>
     </div>
-    <div className="space-y-2 mb-2">
-      <div className="h-3 w-full bg-gray-100 rounded"></div>
-      <div className="h-3 w-4/5 bg-gray-100 rounded"></div>
+    <div className="space-y-2 mb-4">
+      <div className="h-4 w-full bg-plm-charcoal/5 rounded"></div>
+      <div className="h-4 w-4/5 bg-plm-charcoal/5 rounded"></div>
     </div>
-    <div className="h-4 w-12 bg-gray-200 rounded"></div>
+    <div className="h-6 w-16 bg-plm-charcoal/10 rounded-full"></div>
   </div>
 );
 
 export const SubforumBannerSkeleton = () => (
-  <div className="bg-white border border-gray-200 rounded-md shadow-sm mb-8 overflow-hidden animate-pulse">
-    <div className="h-24 bg-gray-200"></div>
-    <div className="px-6 py-4 flex flex-col md:flex-row md:items-end -mt-12 md:-mt-8 gap-4">
-      <div className="bg-white p-2 rounded-full border-4 border-white shadow-md inline-block">
-        <div className="bg-gray-100 w-16 h-16 rounded-full"></div>
-      </div>
-      <div className="mb-2 space-y-2">
-        <div className="h-8 w-48 bg-gray-200 rounded"></div>
-        <div className="h-4 w-64 bg-gray-100 rounded"></div>
+  <div className="bg-plm-blue/10 border-2 border-plm-charcoal rounded-[40px] shadow-[8px_8px_0px_0px_rgba(33,33,33,1)] mb-12 overflow-hidden animate-pulse">
+    <div className="px-8 py-10 flex flex-col md:flex-row md:items-center gap-6">
+      <div className="bg-white border-2 border-plm-charcoal w-20 h-20 rounded-full"></div>
+      <div className="space-y-3">
+        <div className="h-10 w-48 bg-plm-charcoal/10 rounded"></div>
+        <div className="h-4 w-64 bg-plm-charcoal/5 rounded"></div>
       </div>
     </div>
   </div>

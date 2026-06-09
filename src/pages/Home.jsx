@@ -55,15 +55,50 @@ export default function Home() {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div className="flex flex-col lg:flex-row gap-8">
+      {/* Hero Section */}
+      <section className="relative mb-16 py-20 px-8 bg-plm-light-green border-2 border-plm-charcoal rounded-[40px] overflow-hidden bg-grid">
+        {/* Decorative "Stickers" */}
+        <div className="absolute top-10 left-10 text-4xl transform -rotate-12 select-none">🧪</div>
+        <div className="absolute bottom-10 right-20 text-5xl transform rotate-12 select-none">💻</div>
+        <div className="absolute top-20 right-40 text-3xl transform -rotate-6 select-none">🚀</div>
+        <div className="absolute bottom-20 left-40 text-4xl transform rotate-3 select-none">🧬</div>
+
+        <div className="max-w-3xl mx-auto text-center relative z-10">
+          <span className="inline-block px-4 py-1 bg-plm-charcoal text-white text-[10px] font-bold uppercase tracking-[0.2em] rounded-full mb-6">
+            Where Science Meets Tech
+          </span>
+          <h1 className="text-5xl md:text-7xl font-serif font-bold text-plm-charcoal leading-[1.1] mb-8">
+            the community <br />
+            for <span className="italic">saintek</span> students
+          </h1>
+          <div className="flex flex-wrap justify-center gap-4">
+            {!token && (
+              <Link
+                to="/register"
+                className="bg-plm-pink border-2 border-plm-charcoal text-plm-charcoal px-8 py-3 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-plm-charcoal hover:text-white transition-all duration-300 shadow-[6px_6px_0px_0px_rgba(33,33,33,1)] active:shadow-none active:translate-x-1 active:translate-y-1"
+              >
+                Join The Club
+              </Link>
+            )}
+            <a
+              href="#recent-threads"
+              className="bg-white border-2 border-plm-charcoal text-plm-charcoal px-8 py-3 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-plm-charcoal hover:text-white transition-all duration-300 shadow-[6px_6px_0px_0px_rgba(33,33,33,1)] active:shadow-none active:translate-x-1 active:translate-y-1"
+            >
+              Explore Feed
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <div className="flex flex-col lg:flex-row gap-8" id="recent-threads">
         {/* Main Content: Feed Thread */}
         <div className="w-full lg:w-2/3">
-          <div className="flex justify-between items-center mb-6">
-            <h1 className="text-2xl font-bold">Recent Threads</h1>
+          <div className="flex justify-between items-center mb-10">
+            <h2 className="text-4xl font-serif font-bold text-plm-charcoal italic underline decoration-plm-pink decoration-8 underline-offset-4">Recent Threads</h2>
             {!loading && token && (
               <Link
                 to="/create-thread"
-                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-bold transition duration-200 flex items-center"
+                className="bg-plm-blue border-2 border-plm-charcoal text-plm-charcoal px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-plm-charcoal hover:text-white transition-all duration-300 shadow-[4px_4px_0px_0px_rgba(33,33,33,1)] active:shadow-none active:translate-x-1 active:translate-y-1 flex items-center"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
                   <path fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clipRule="evenodd" />
@@ -103,9 +138,10 @@ export default function Home() {
             ) : (
               <SubforumSidebar subforums={subforums} />
             )}
-            <div className="mt-4 p-4 bg-white border border-gray-200 rounded-md shadow-sm">
-              <h3 className="font-bold text-sm mb-2">About Forum SAINTEK</h3>
-              <p className="text-xs text-gray-600 leading-relaxed">
+            <div className="mt-6 p-6 bg-plm-light-green border-2 border-plm-charcoal rounded-[32px] shadow-[6px_6px_0px_0px_rgba(33,33,33,1)] relative overflow-hidden">
+              <div className="absolute -top-2 -right-2 text-2xl opacity-20 transform rotate-12">🛰️</div>
+              <h3 className="font-serif font-bold text-lg mb-3 lowercase italic underline decoration-white decoration-4 underline-offset-2">About Forum SAINTEK</h3>
+              <p className="text-[10px] uppercase tracking-widest font-bold text-plm-charcoal/70 leading-loose">
                 Welcome to the SAINTEK community! A place to discuss Science, Technology, Engineering, and Mathematics.
               </p>
             </div>

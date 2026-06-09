@@ -18,21 +18,25 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="bg-white shadow-md">
+    <nav className="bg-plm-cream border-b border-plm-charcoal/10 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16">
+        <div className="flex justify-between h-20 items-center">
           <div className="flex items-center">
-            <Link to="/" className="text-xl font-bold text-blue-600">
-              Forum SAINTEK
+            <Link to="/" className="text-3xl font-serif font-bold text-plm-charcoal lowercase tracking-tight">
+              saintek<span className="text-plm-olive">.</span>
             </Link>
+          </div>
+          <div className="hidden md:flex items-center space-x-8 uppercase text-xs font-bold tracking-widest text-plm-charcoal/60">
+            <Link to="/" className="hover:text-plm-charcoal transition-colors">Home</Link>
+            <Link to="/subforums/saintekfess" className="hover:text-plm-charcoal transition-colors">Fess</Link>
           </div>
           <div className="flex items-center space-x-4">
             {token && user ? (
               <>
-                <span className="text-gray-700 font-medium">Hello, {user.username || user.name}</span>
+                <span className="text-sm font-medium hidden sm:inline">Hi, {user.username || user.name}</span>
                 <button
                   onClick={handleLogout}
-                  className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md text-sm font-medium transition duration-200"
+                  className="border-2 border-plm-charcoal bg-plm-pink text-plm-charcoal px-6 py-2 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-plm-charcoal hover:text-white transition-all duration-300 shadow-[4px_4px_0px_0px_rgba(33,33,33,1)] active:shadow-none active:translate-x-1 active:translate-y-1"
                 >
                   Logout
                 </button>
@@ -41,15 +45,15 @@ export default function Navbar() {
               <>
                 <Link
                   to="/login"
-                  className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium"
+                  className="text-xs font-bold uppercase tracking-widest hover:text-plm-olive transition-colors"
                 >
                   Login
                 </Link>
                 <Link
                   to="/register"
-                  className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition duration-200"
+                  className="border-2 border-plm-charcoal bg-plm-pink text-plm-charcoal px-6 py-2 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-plm-charcoal hover:text-white transition-all duration-300 shadow-[4px_4px_0px_0px_rgba(33,33,33,1)] active:shadow-none active:translate-x-1 active:translate-y-1"
                 >
-                  Register
+                  Join The Club
                 </Link>
               </>
             )}

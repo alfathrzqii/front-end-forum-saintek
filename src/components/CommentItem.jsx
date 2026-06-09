@@ -36,33 +36,33 @@ export default function CommentItem({ comment, threadId, onCommentPosted, depth 
   const authorName = isThreadAnonymous ? 'anonymous' : (comment.author?.username || 'anonymous');
 
   return (
-    <div className={`mt-4 ${depth > 0 ? 'ml-2 md:ml-6 border-l-2 border-blue-50 pl-4' : ''}`}>
-      <div className="group transition-all duration-200 hover:border-l-2 hover:border-blue-200 -ml-4 pl-4">
-        <div className="flex items-center text-xs text-gray-500 mb-2">
-          <span className="font-bold text-gray-900 mr-2">u/{authorName}</span>
+    <div className={`mt-6 ${depth > 0 ? 'ml-4 md:ml-10 border-l-2 border-plm-charcoal/10 pl-6' : ''}`}>
+      <div className="-ml-6 pl-6">
+        <div className="flex items-center text-[10px] uppercase tracking-widest text-plm-charcoal/60 mb-3 font-bold">
+          <span className="text-plm-charcoal mr-2">{authorName}</span>
           <span>•</span>
           <span className="ml-2">{new Date(comment.createdAt).toLocaleString()}</span>
         </div>
 
-        <div className="text-gray-800 text-sm leading-relaxed whitespace-pre-wrap mb-2">
+        <div className="text-plm-charcoal/80 text-sm md:text-base leading-relaxed whitespace-pre-wrap mb-4 font-sans">
           {comment.content}
         </div>
 
-        <div className="flex items-center space-x-4 mb-4">
+        <div className="flex items-center gap-4 mb-6">
           <VoteButton
             commentId={comment.id}
             initialUpvotes={comment._count?.votes || 0}
             initialDownvotes={0}
             initialUserVote={0}
-            className="scale-90 -ml-2 mr-2"
+            className="scale-75 -ml-2 origin-left"
           />
 
           {token && (
             <button
               onClick={() => setIsReplying(!isReplying)}
-              className="text-xs font-bold text-gray-500 hover:text-blue-600 flex items-center transition-colors"
+              className="text-[10px] uppercase tracking-widest font-bold text-plm-charcoal/60 hover:text-plm-olive flex items-center transition-colors"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6" />
               </svg>
               Reply
@@ -71,30 +71,30 @@ export default function CommentItem({ comment, threadId, onCommentPosted, depth 
         </div>
 
         {isReplying && (
-          <div className="mb-4 animate-fadeIn">
+          <div className="mb-6 animate-fadeIn">
             <form onSubmit={handleReplySubmit}>
               <textarea
-                className="w-full px-3 py-2 text-sm border-2 border-gray-100 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-gray-50 resize-none outline-none"
-                placeholder={`Reply to u/${authorName}...`}
+                className="w-full px-5 py-4 text-sm border-2 border-plm-charcoal rounded-2xl focus:outline-none focus:bg-plm-cream bg-white resize-none shadow-[4px_4px_0px_0px_rgba(33,33,33,1)] transition-all"
+                placeholder={`Reply to ${authorName}...`}
                 rows="3"
                 value={replyContent}
                 onChange={(e) => setReplyContent(e.target.value)}
                 required
               ></textarea>
-              <div className="flex justify-end space-x-2 mt-2">
+              <div className="flex justify-end space-x-3 mt-4">
                 <button
                   type="button"
                   onClick={() => setIsReplying(false)}
-                  className="px-4 py-1 text-xs font-bold text-gray-500 hover:text-gray-700 transition"
+                  className="px-5 py-2 text-[10px] font-bold uppercase tracking-widest text-plm-charcoal/60 hover:text-plm-charcoal transition"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={submitting || !replyContent.trim()}
-                  className={`px-4 py-1 bg-blue-600 text-white text-xs font-bold rounded-full hover:bg-blue-700 transition ${submitting || !replyContent.trim() ? 'opacity-50 cursor-not-allowed' : ''}`}
+                  className={`bg-plm-green border-2 border-plm-charcoal text-plm-charcoal px-6 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-plm-charcoal hover:text-white transition-all shadow-[3px_3px_0px_0px_rgba(33,33,33,1)] active:shadow-none active:translate-x-0.5 active:translate-y-0.5 ${submitting || !replyContent.trim() ? 'opacity-50 cursor-not-allowed' : ''}`}
                 >
-                  {submitting ? 'Posting...' : 'Post Reply'}
+                  {submitting ? 'Hold on...' : 'Post Reply'}
                 </button>
               </div>
             </form>
