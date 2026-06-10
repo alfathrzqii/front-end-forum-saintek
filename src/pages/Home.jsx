@@ -145,6 +145,31 @@ export default function Home() {
                 Welcome to the SAINTEK community! A place to discuss Science, Technology, Engineering, and Mathematics.
               </p>
             </div>
+
+            <div className="mt-6 p-6 bg-white border-2 border-plm-charcoal rounded-[32px] shadow-[6px_6px_0px_0px_rgba(33,33,33,1)] relative overflow-hidden">
+              <div className="absolute -top-2 -right-2 text-2xl opacity-20 transform rotate-12">✨</div>
+              <h3 className="font-serif font-bold text-lg mb-3 lowercase italic underline decoration-plm-pink decoration-4 underline-offset-2">Credits</h3>
+              <p className="text-[10px] uppercase tracking-widest font-bold text-plm-charcoal/70 mb-4 leading-relaxed">
+                Dikembangkan untuk memenuhi tugas akhir mata kuliah Komputasi Awan.
+              </p>
+              <ul className="space-y-2">
+                <li>
+                  <a href="https://instagram.com/izzanbcy" target="_blank" rel="noopener noreferrer" className="text-[10px] uppercase tracking-widest font-bold text-plm-charcoal hover:text-plm-pink transition-colors flex items-center">
+                    <span className="mr-2">📸</span> @izzanbcy
+                  </a>
+                </li>
+                <li>
+                  <a href="https://instagram.com/khaillautami._" target="_blank" rel="noopener noreferrer" className="text-[10px] uppercase tracking-widest font-bold text-plm-charcoal hover:text-plm-pink transition-colors flex items-center">
+                    <span className="mr-2">📸</span> @khaillautami._
+                  </a>
+                </li>
+                <li>
+                  <a href="https://instagram.com/alfathrzqii" target="_blank" rel="noopener noreferrer" className="text-[10px] uppercase tracking-widest font-bold text-plm-charcoal hover:text-plm-pink transition-colors flex items-center">
+                    <span className="mr-2">📸</span> @alfathrzqii
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
         </aside>
       </div>
