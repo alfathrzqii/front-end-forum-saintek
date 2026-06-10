@@ -60,6 +60,6 @@ Proyek ini mengikuti struktur folder berikut sesuai dengan panduan pengembangan:
 
 ## Credits
 Dikembangkan untuk memenuhi tugas akhir mata kuliah Komputasi Awan.
-- [@izzanbcy](https://github.com/izzanbcy) (Front-End Developer)
-- [@keyie2906-cmd](https://github.com/keyie2906-cmd) (Designer)
-- [@alfathrozaqi](https://github.com/alfathrozaqi) (Back-End Developer)
+- [instagram.com/izzanbcy](https://instagram.com/izzanbcy)
+- [instagram.com/khaillautami._](https://instagram.com/khaillautami._)
+- [instagram.com/alfathrzqii](https://instagram.com/alfathrzqii)
