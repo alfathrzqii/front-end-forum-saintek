@@ -58,3 +58,8 @@ Proyek ini mengikuti struktur folder berikut sesuai dengan panduan pengembangan:
 - `src/store`: Manajemen state menggunakan Zustand (seperti `authStore.js`).
 - `src/services`: Konfigurasi Axios dan fungsi untuk pemanggilan API.
 
+## Credits
+Dikembangkan untuk memenuhi tugas akhir mata kuliah Komputasi Awan.
+- [@izzanbcy](https://github.com/izzanbcy) (Front-End Developer)
+- [@keyie2906-cmd](https://github.com/keyie2906-cmd) (Designer)
+- [@alfathrozaqi](https://github.com/alfathrozaqi) (Back-End Developer)
