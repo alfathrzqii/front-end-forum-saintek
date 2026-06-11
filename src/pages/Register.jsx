@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { Info } from 'lucide-react';
 import api from '../services/api';
 
 export default function Register() {
@@ -49,6 +50,13 @@ export default function Register() {
         <div className="absolute top-4 right-8 text-2xl opacity-20 select-none">✨</div>
 
         <h2 className="text-4xl font-serif font-bold text-center text-plm-charcoal mb-10 lowercase tracking-tight">join the club<span className="text-plm-olive">.</span></h2>
+
+        <div className="bg-plm-blue border-2 border-plm-charcoal rounded-2xl p-4 mb-6 shadow-[4px_4px_0px_0px_rgba(33,33,33,1)] flex items-start space-x-3">
+          <Info className="w-5 h-5 text-plm-charcoal flex-shrink-0 mt-0.5" />
+          <p className="text-sm text-plm-charcoal font-medium leading-relaxed">
+            Belum punya email kampus? Pakai format <span className="font-bold">NIM@mhs.uinsaid.ac.id</span> aja. Tenang, pendaftaran nggak butuh verifikasi OTP kok!
+          </p>
+        </div>
 
         {error && (
           <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4" role="alert">
